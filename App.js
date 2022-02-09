@@ -1,20 +1,33 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet } from 'react-native';
+import { gStyle } from './styles/style';
+import * as Font from 'expo-font';
+import AppLoading from 'expo-app-loading';
+import Main from './components/Main';
+
+const fonts = () => Font.loadAsync({
+  'PT-regular': require('./assets/fonts/PTSans-Regular.ttf'),
+  'PT-bold': require('./assets/fonts/PTSans-Bold.ttf'),
+});
 
 export default function App() {
+  const [font, setFont] = useState(false);
+
+  if (font) {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Main />
   );
+  } else {
+    return (
+      <AppLoading 
+        startAsync={fonts} 
+        onFinish={() => setFont(true)} 
+        onError={console.warn}/>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+
+
 });
