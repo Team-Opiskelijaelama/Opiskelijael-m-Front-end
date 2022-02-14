@@ -6,7 +6,7 @@ export default function Sitsit() {
   return (
     <View style={gStyle.main}>
 
-      <Text style={gStyle.title}>Sitsit page</Text>
+      <Text style={gStyle.title}>Sitsit sivu</Text>
 
     </View>
   );
