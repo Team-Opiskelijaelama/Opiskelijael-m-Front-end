@@ -1,34 +1,39 @@
-import React from 'react';
-import { Text, View, Button} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Text, View, Button, FlatList, Alert, Pressable } from 'react-native';
 import { gStyle } from '../styles/style';
 
 export default function Main({ navigation }) {
 
-  const loadAppro = () => {
-    navigation.navigate('Appro');
-  }
-  const loadSitsit = () => {
-    navigation.navigate('Sitsit');
-  }
-  const loadGambinakokous = () => {
-    navigation.navigate('Gambinakokous');
-  }
-  const loadRastikierros= () => {
-    navigation.navigate('Rastikierros');
-  }
+  const [tapahtumat, setTapahtumat] = useState([]);
+
+  const haeTapahtumat = async () => {
+    try {
+      const response = await
+        fetch(`https://opiskelijaelamaversio1.herokuapp.com/rest/tapahtumat`);
+      const json = await response.json();
+      setTapahtumat(json);
+    } catch (error) {
+      Alert.alert("voihan", "paska, haku ei toimi. virheilmoitus:" + toString(error))
+    }
+  };
+
+  useEffect(() => { haeTapahtumat() }, []);
+
 
   return (
     <View style={gStyle.main}>
 
       <Text style={gStyle.title}>Etusivu</Text>
 
-      <Button title='Appro' onPress={loadAppro}/>
-
-      <Button title='Sitsit' onPress={loadSitsit}/>
-
-      <Button title='Gambinakokous' onPress={loadGambinakokous}/>
-
-      <Button title='Rastikierros' onPress={loadRastikierros}/>
+      <FlatList data={tapahtumat} renderItem={({ item }) =>
+        <View>
+          <Button title={item.tapahtumaNimi} onPress={() => {
+            navigation.navigate(item.tapahtumaNimi);
+          }} />
+          <Text>{item.tapahtumaKuvaus}</Text>
+        </View>}
+        keyExtractor={(item, index) => index}
+      />
 
     </View>
   );
