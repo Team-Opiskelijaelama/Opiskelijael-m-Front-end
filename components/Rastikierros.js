@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, } from 'react-native';
+import { Text, View, ScrollView } from 'react-native';
 import { gStyle } from '../styles/style';
 
 export default function Rastikierros() {
@@ -20,8 +20,10 @@ export default function Rastikierros() {
 
   return (
     <View style={gStyle.main}>
-      <Text style={gStyle.title}> {tapahtuma.tapahtumaKuvaus}</Text>
-      <Text style={gStyle.title}> {tapahtuma.tapahtumaSaannot}</Text>
+      <ScrollView >
+        <Text style={gStyle.title}> {tapahtuma.tapahtumaKuvaus}</Text>
+        <Text style={gStyle.title}> {tapahtuma.tapahtumaSaannot}</Text>
+      </ScrollView>
     </View>
   );
 }

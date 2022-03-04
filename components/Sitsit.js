@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, } from 'react-native';
+import { Text, ScrollView, View } from 'react-native';
 import { gStyle } from '../styles/style';
 
 export default function Sitsit() {
@@ -20,9 +20,11 @@ export default function Sitsit() {
 
   return (
     <View style={gStyle.main}>
-      <Text style={gStyle.title}> {tapahtuma.tapahtumaKuvaus}</Text>
-      <Text style={gStyle.title}> {tapahtuma.tapahtumaSaannot}</Text>
-      <Text style={gStyle.title}> {tapahtuma.kaytos}</Text>
+      <ScrollView >
+        <Text style={gStyle.title}> {tapahtuma.tapahtumaKuvaus}</Text>
+        <Text style={gStyle.title}> {tapahtuma.tapahtumaSaannot}</Text>
+        <Text style={gStyle.title}> {tapahtuma.kaytos}</Text>
+      </ScrollView>
     </View>
   );
 }
