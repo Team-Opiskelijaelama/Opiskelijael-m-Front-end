@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Button, FlatList, Alert, Pressable } from 'react-native';
+import { Text, View, Button, FlatList, Alert, Pressable, ScrollView } from 'react-native';
 import { gStyle } from '../styles/style';
 
 export default function Main({ navigation }) {
@@ -21,9 +21,8 @@ export default function Main({ navigation }) {
 
 
   return (
+    <ScrollView>
     <View style={gStyle.main}>
-
-      <Text style={gStyle.title}>Etusivu</Text>
 
       <FlatList data={tapahtumat} renderItem={({ item }) =>
         <View>
@@ -36,5 +35,6 @@ export default function Main({ navigation }) {
       />
 
     </View>
+    </ScrollView>
   );
 }

@@ -19,11 +19,11 @@ export default function Gambinakokous() {
   useEffect(() => { haeTapahtuma() }, []);
 
   return (
-    <View style={gStyle.main}>
-      <ScrollView>
+    <ScrollView>
+      <View style={gStyle.main}>
         <Text style={gStyle.title}> {tapahtuma.tapahtumaKuvaus}</Text>
         <Text style={gStyle.title}> {tapahtuma.tapahtumaSaannot}</Text>
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 }

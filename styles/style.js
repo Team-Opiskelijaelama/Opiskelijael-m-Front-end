@@ -6,7 +6,7 @@ export const gStyle = StyleSheet.create({
     main: {
         flex: 1,
         padding: 20,
-        paddingTop: 60,        
+        paddingTop: 20,        
         //backgroundColor: ''
     },
     title: {

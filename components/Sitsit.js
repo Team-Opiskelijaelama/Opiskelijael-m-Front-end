@@ -19,12 +19,12 @@ export default function Sitsit() {
   useEffect(() => { haeTapahtuma() }, []);
 
   return (
-    <View style={gStyle.main}>
-      <ScrollView >
+    <ScrollView>
+     <View style={gStyle.main}>
         <Text style={gStyle.title}> {tapahtuma.tapahtumaKuvaus}</Text>
         <Text style={gStyle.title}> {tapahtuma.tapahtumaSaannot}</Text>
         <Text style={gStyle.title}> {tapahtuma.kaytos}</Text>
-      </ScrollView>
-    </View>
+     </View>
+    </ScrollView>
   );
 }
