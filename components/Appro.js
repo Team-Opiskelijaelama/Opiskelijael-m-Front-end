@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, ScrollView } from 'react-native';
+import { Text, View, ScrollView, Modal, Pressable } from 'react-native';
 import { gStyle } from '../styles/style';
 
 export default function Appro() {
 
   const [tapahtuma, setTapahtuma] = useState({});
+  const [modalVisible, setModalVisible] = useState(false);
 
   const haeTapahtuma = async () => {
     try {
@@ -23,7 +24,42 @@ export default function Appro() {
     <ScrollView>
       <View style={gStyle.main}>
         <Text style={gStyle.title}> {tapahtuma.tapahtumaKuvaus}</Text>
-        <Text style={gStyle.title}> {tapahtuma.tapahtumaSaannot}</Text>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <ScrollView>
+          <View style={gStyle.centeredView}>
+            <View style={gStyle.modalView}>
+              <Pressable
+                style={[gStyle.button, gStyle.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={gStyle.title}>Sulje</Text>
+              </Pressable>
+              <Text style={gStyle.title}>Approjen säännöt:</Text>
+              <Text style={gStyle.modalText}>{tapahtuma.tapahtumaSaannot} </Text>
+              <Pressable
+                style={[gStyle.button, gStyle.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={gStyle.title}>Sulje</Text>
+              </Pressable>
+            </View>
+          </View>
+          </ScrollView>
+        </Modal>
+        <Pressable
+          style={[gStyle.button, gStyle.buttonOpen]}
+          onPress={() => setModalVisible(true)}
+        >
+          <Text style={gStyle.title}>Approjen säännöt</Text>
+        </Pressable>
       </View>
     </ScrollView>
   );
