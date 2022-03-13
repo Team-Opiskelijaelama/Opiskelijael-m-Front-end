@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Text, ScrollView, View } from 'react-native';
+import { Text, ScrollView, View, Modal, Pressable } from 'react-native';
 import { gStyle } from '../styles/style';
 
 export default function Sitsit() {
   const [tapahtuma, setTapahtuma] = useState({});
+  const [modalVisible, setModalVisible] = useState(false);
 
   const haeTapahtuma = async () => {
     try {
@@ -19,11 +20,51 @@ export default function Sitsit() {
   useEffect(() => { haeTapahtuma() }, []);
 
   return (
-    <ScrollView>
+    <ScrollView
+      contentContainerStyle={{ width: '100%' }}
+      horizontal 
+    >
      <View style={gStyle.main}>
         <Text style={gStyle.title}> {tapahtuma.tapahtumaKuvaus}</Text>
-        <Text style={gStyle.title}> {tapahtuma.tapahtumaSaannot}</Text>
-        <Text style={gStyle.title}> {tapahtuma.kaytos}</Text>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <ScrollView>
+          <View style={gStyle.centeredView}>
+            <View style={gStyle.modalView}>
+              <Pressable
+                style={[gStyle.button, gStyle.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={gStyle.title}>Sulje</Text>
+              </Pressable>
+              <Text style={gStyle.title}>Sitsien säännöt:</Text>
+              <Text style={gStyle.modalText}>{tapahtuma.tapahtumaSaannot} </Text>
+              <Text style={gStyle.title}>Käytös:</Text>
+              <Text style={gStyle.modalText}>{tapahtuma.kaytos} </Text>
+              <Pressable
+                style={[gStyle.button, gStyle.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={gStyle.title}>Sulje</Text>
+              </Pressable>
+            </View>
+          </View>
+          </ScrollView>
+        </Modal>
+        <Pressable
+          style={[gStyle.button, gStyle.buttonOpen]}
+          onPress={() => setModalVisible(true)}
+        >
+          <Text style={gStyle.title}>Sitsien säännöt</Text>
+        </Pressable>
+
      </View>
     </ScrollView>
   );
