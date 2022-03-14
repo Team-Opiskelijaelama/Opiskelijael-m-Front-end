@@ -20,11 +20,8 @@ export default function Sitsit() {
   useEffect(() => { haeTapahtuma() }, []);
 
   return (
-    <ScrollView
-      contentContainerStyle={{ width: '100%' }}
-      horizontal 
-    >
-     <View style={gStyle.main}>
+    <ScrollView>
+      <View style={gStyle.main}>
         <Text style={gStyle.title}> {tapahtuma.tapahtumaKuvaus}</Text>
         <Modal
           animationType="slide"
