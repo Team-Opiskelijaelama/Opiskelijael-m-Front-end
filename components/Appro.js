@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, ScrollView, Modal, Pressable } from 'react-native';
 import { gStyle } from '../styles/style';
+import RestaurantApi from './RestaurantApi'
+
 
 export default function Appro() {
 
@@ -60,6 +62,7 @@ export default function Appro() {
         >
           <Text style={gStyle.title}>Approjen säännöt</Text>
         </Pressable>
+        <RestaurantApi/>
       </View>
     </ScrollView>
   );
