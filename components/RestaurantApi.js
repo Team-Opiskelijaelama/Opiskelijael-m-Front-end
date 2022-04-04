@@ -59,7 +59,7 @@ export default function RestaurantApi() {
         }}
         renderItem={({ item }) => (
         
-          <View style={{flexDirection: 'row', padding: 10, marginBottom: 10, backgroundColor: '#ededed', borderRadius: 16, shadowColor: '#000'}}>
+          <View style={{flexDirection: 'row', padding: 10, marginVertical: 10, backgroundColor: '#ededed', borderRadius: 16, shadowColor: '#000'}}>
         
             <View>
 

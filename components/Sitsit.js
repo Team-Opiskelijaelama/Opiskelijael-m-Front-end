@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, ScrollView, View, Modal, Pressable } from 'react-native';
 import { gStyle } from '../styles/style';
+import Sitsilaulut from './Sitsilaulut'
 
 export default function Sitsit() {
   const [tapahtuma, setTapahtuma] = useState({});
@@ -61,7 +62,7 @@ export default function Sitsit() {
         >
           <Text style={gStyle.title}>Sitsien säännöt</Text>
         </Pressable>
-
+        <Sitsilaulut/>
      </View>
     </ScrollView>
   );
