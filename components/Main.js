@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, Button, FlatList, Alert, Pressable, ScrollView } from 'react-native';
 import { gStyle } from '../styles/style';
+import Juomapeli from './Juomapeli';
 
 export default function Main({ navigation }) {
 
@@ -9,7 +10,7 @@ export default function Main({ navigation }) {
   const haeTapahtumat = async () => {
     try {
       const response = await
-        fetch(`https://opiskelijaelamaversio1.herokuapp.com/rest/tapahtumat`);
+        fetch(`https://opiskelijaelama.herokuapp.com/rest/tapahtumat`);
       const json = await response.json();
       setTapahtumat(json);
     } catch (error) {
@@ -23,7 +24,6 @@ export default function Main({ navigation }) {
   return (
     <ScrollView>
     <View style={gStyle.main}>
-
       <FlatList data={tapahtumat} renderItem={({ item }) =>
         <View>
           <Button title={item.tapahtumaNimi} onPress={() => {
@@ -33,7 +33,9 @@ export default function Main({ navigation }) {
         </View>}
         keyExtractor={(item, index) => index}
       />
-
+      <Button title={'Juomapelit'} onPress={() => {
+        navigation.navigate('Juomapeli');
+      }} />
     </View>
     </ScrollView>
   );

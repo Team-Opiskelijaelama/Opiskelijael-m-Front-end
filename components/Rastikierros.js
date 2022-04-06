@@ -9,7 +9,7 @@ export default function Rastikierros() {
   const haeTapahtuma = async () => {
     try {
       const response = await
-        fetch(`https://opiskelijaelamaversio1.herokuapp.com/rest/tapahtuma/R`);
+        fetch(`https://opiskelijaelama.herokuapp.com/rest/tapahtuma/R`);
       const json = await response.json();
       setTapahtuma(json);
     } catch (error) {

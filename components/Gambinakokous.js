@@ -9,7 +9,7 @@ export default function Gambinakokous() {
   const haeTapahtuma = async () => {
     try {
       const response = await
-        fetch(`https://opiskelijaelamaversio1.herokuapp.com/rest/tapahtuma/G`);
+        fetch(`https://opiskelijaelama.herokuapp.com/rest/tapahtuma/G`);
       const json = await response.json();
       setTapahtuma(json);
     } catch (error) {
