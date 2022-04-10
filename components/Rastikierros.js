@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, ScrollView, Modal, Pressable } from 'react-native';
 import { gStyle } from '../styles/style';
+import Tehtavat from './Tehtavat';
 
 export default function Rastikierros() {
   const [tapahtuma, setTapahtuma] = useState({});
@@ -59,6 +60,7 @@ export default function Rastikierros() {
         >
           <Text style={gStyle.title}>Rastikierroksen säännöt</Text>
         </Pressable>
+        <Tehtavat/>
       </View>
     </ScrollView>
   );

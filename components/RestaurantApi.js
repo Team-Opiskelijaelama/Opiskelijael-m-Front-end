@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, SafeAreaView, Text, View, Button, FlatList, Image } from "react-native";
+import { StyleSheet, SafeAreaView, Text, View, Button, FlatList, Image, Pressable } from "react-native";
 import * as Location from 'expo-location'; 
+import { gStyle } from '../styles/style';
 
 export default function RestaurantApi() {
 
@@ -48,8 +49,12 @@ export default function RestaurantApi() {
 
     return (
     <View>
-
-      <Button title="Hanki ravintoloita" onPress={getRepositories} />
+      <Pressable
+        style={[gStyle.button, gStyle.buttonOpen]}
+        onPress={getRepositories}
+      >
+        <Text style={gStyle.title}>Hanki ravintoloita</Text>
+      </Pressable>
 
       <FlatList
         data={ravintolat}
