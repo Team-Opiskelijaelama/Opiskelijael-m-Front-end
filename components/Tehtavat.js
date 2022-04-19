@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, SafeAreaView, Text, View, Button, FlatList, Image, Pressable } from "react-native";
+import { StyleSheet, ScrollView, Text, View, Button, FlatList, Image, Pressable } from "react-native";
 import { gStyle } from '../styles/style';
 
 export default function Tehtavat() {
@@ -20,15 +20,15 @@ export default function Tehtavat() {
     
 
     return (
-        <View>
-          <Pressable
-            style={[gStyle.button, gStyle.buttonOpen]}
-            onPress={getTehtavat}
-          >
-            <Text style={gStyle.title}>Luo tehtäviä</Text>
-          </Pressable>
+      <ScrollView>
+        <Pressable
+          style={[gStyle.button, gStyle.buttonOpen]}
+          onPress={getTehtavat}
+        >
+          <Text style={gStyle.title}>Luo tehtäviä</Text>
+        </Pressable>
 
-     <FlatList
+      <FlatList
         data={tehtavat}
         keyExtractor={(item, index) => index.toString()}
         contentContainerStyle = {{
@@ -44,6 +44,6 @@ export default function Tehtavat() {
 
           </View>
         )}/>
-        </View>
+        </ScrollView>
     );
 }

@@ -5,6 +5,7 @@ import Sitsit from './components/Sitsit';
 import Gambinakokous from "./components/Gambinakokous";
 import Rastikierros from './components/Rastikierros';
 import Juomapeli from './components/Juomapeli';
+import Tehtavat from './components/Tehtavat';
 
 
 import { createStackNavigator } from "@react-navigation/stack";
@@ -45,6 +46,11 @@ export default function Navigate() {
                 component={Juomapeli}
                 options={{title: 'Juomapelit'}}
                 />
+            <Stack.Screen
+                name='Tehtavalista'
+                component={Tehtavat}
+                options={{title: 'Tehtävälista'}}
+            />
         </Stack.Navigator>
     </NavigationContainer>;
 }

@@ -3,7 +3,7 @@ import { Text, View, ScrollView, Modal, Pressable } from 'react-native';
 import { gStyle } from '../styles/style';
 import Tehtavat from './Tehtavat';
 
-export default function Rastikierros() {
+export default function Rastikierros({ navigation }) {
   const [tapahtuma, setTapahtuma] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -60,7 +60,14 @@ export default function Rastikierros() {
         >
           <Text style={gStyle.title}>Rastikierroksen säännöt</Text>
         </Pressable>
-        <Tehtavat/>
+        <Pressable
+          style={[gStyle.button, gStyle.buttonOpen]}
+          onPress={() => {
+            navigation.navigate('Tehtavalista');
+          }}
+        >
+          <Text style={gStyle.title}>Tehtävälista</Text>
+        </Pressable>
       </View>
     </ScrollView>
   );
