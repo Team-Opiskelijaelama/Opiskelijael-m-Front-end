@@ -4,7 +4,7 @@ import { gStyle } from '../styles/style';
 import RestaurantApi from './RestaurantApi'
 
 
-export default function Appro() {
+export default function Appro({ navigation }) {
 
   const [tapahtuma, setTapahtuma] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
@@ -62,7 +62,15 @@ export default function Appro() {
         >
           <Text style={gStyle.title}>Approjen säännöt</Text>
         </Pressable>
-        <RestaurantApi/>
+        <Pressable
+          style={[gStyle.button, gStyle.buttonOpen]}
+          onPress={() => {
+            navigation.navigate('Ravintolat');
+          }}
+        >
+          <Text style={gStyle.title}>Ravintolat</Text>
+        </Pressable>
+
       </View>
     </ScrollView>
   );

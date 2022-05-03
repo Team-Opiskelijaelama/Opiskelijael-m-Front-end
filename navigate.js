@@ -10,6 +10,7 @@ import Tehtavat from './components/Tehtavat';
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
+import RestaurantApi from "./components/RestaurantApi";
 
 const Stack = createStackNavigator();
 
@@ -50,6 +51,11 @@ export default function Navigate() {
                 name='Tehtavalista'
                 component={Tehtavat}
                 options={{title: 'Tehtävälista'}}
+            />
+            <Stack.Screen
+                name='Ravintolat'
+                component={RestaurantApi}
+                options={{title: 'Ravintolat'}}
             />
         </Stack.Navigator>
     </NavigationContainer>;

@@ -43,6 +43,17 @@ export const gStyle = StyleSheet.create({
     modalText: {
         marginBottom: 15,
         textAlign: "center"
+    },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    map: {
+        flex: 1,
+        width: "100%",
+        height: "100%"
     }
 
 }) 

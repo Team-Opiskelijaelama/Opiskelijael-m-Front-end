@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, SafeAreaView, Text, View, Button, FlatList, Image, Pressable } from "react-native";
+import { StyleSheet, ScrollView, Text, View, Button, FlatList, Image, Pressable, Modal } from "react-native";
 import * as Location from 'expo-location'; 
+import MapView, { Marker } from 'react-native-maps';
 import { gStyle } from '../styles/style';
 
 export default function RestaurantApi() {
@@ -12,8 +13,19 @@ export default function RestaurantApi() {
   const [lat, setLat] = useState('');
   const [lon, setLon] = useState('');
 
-  useEffect(() => {
-    (async () => {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const initial = {
+    latitude: 61.92411,
+    longitude: 25.748151,
+    latitudeDelta: 0.200,
+    longitudeDelta: 0.100
+  };
+
+  const [region, setRegion] = useState(initial);
+
+  const getSijainti = async () => {
+
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         setErrorMsg('Permission to access location was denied');
@@ -25,63 +37,118 @@ export default function RestaurantApi() {
       console.log(location);
       setLat((location.coords.latitude).toString());
       setLon((location.coords.longitude).toString());
+      const { latitude, longitude } = location.coords;
+      setRegion({ ...region, latitude: latitude, longitude: longitude });
+      getRepositories;
+    }
 
-    })();
-  }, []);
+ 
+  const getRepositories = async () => {
+    const url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + lat + '%2C' + lon + '&radius=3000&type=bar&key=AIzaSyAAdxNfFmOb50zzX8KfRRE4608avohVwPQ';
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
 
 
-  const getRepositories = () => {
+    for (let i = 0; i < data.results.length; i++) {
+      setRavintolat((ravintolat) => [...ravintolat, { name: data.results[i].name, lat: data.results[i].geometry.location.lat , lon: data.results[i].geometry.location.lng, open: data.results[i].opening_hours.open_now, address: data.results[i].vicinity }] 
+      )
+    }
 
-    fetch(('https://travel-advisor.p.rapidapi.com/restaurants/list-by-latlng?latitude=' + lat + '&longitude=' + lon + '&limit=30&currency=USD&distance=2&open_now=false&lunit=km&lang=en_US'), {
-      "method": "GET",
-      "headers": {
-        "x-rapidapi-host": "travel-advisor.p.rapidapi.com",
-        "x-rapidapi-key": "25a22228abmshe90e31e943b8facp153abfjsn326786a3036f"
-      }
-    })
+  
+    console.log(ravintolat);
 
-      .then(response => response.json())
-      .then(data => setRavintolat(data.data))
-      .catch(err => {
-        console.error(err);
-      });
+
+    } catch (error) {
+      console.error('fail', error.message);
+    }
+    
   }
-
+  
     return (
-    <View>
+      <View style={gStyle.container}>
+      <MapView
+        style={gStyle.map}
+        region={region}
+      >
+        {/*<Marker
+          coordinate={{latitude: Number(ravintolat[0].lat), longitude: Number(ravintolat[0].lon)}}
+          title='HaettuPaikka'
+    />*/}
+        {ravintolat.map((item, index) => (
+          <Marker key={index} title={item.name} coordinate={{latitude: Number(item.lat), longitude: Number(item.lon)}}/>
+        ))}
+      </MapView>
+      <Pressable
+        style={[gStyle.button, gStyle.buttonOpen]}
+        onPress={getSijainti}
+      >
+        <Text style={gStyle.title}>Näytä sijaintisi</Text>
+      </Pressable>
       <Pressable
         style={[gStyle.button, gStyle.buttonOpen]}
         onPress={getRepositories}
       >
         <Text style={gStyle.title}>Hanki ravintoloita</Text>
       </Pressable>
-
-      <FlatList
-        data={ravintolat}
-        keyExtractor={(item, index) => index.toString()}
-        contentContainerStyle = {{
-          padding: 10,
-        }}
-        renderItem={({ item }) => (
+      <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <ScrollView>
+          <View style={gStyle.centeredView}>
+            <View style={gStyle.modalView}>
+              <Pressable
+                style={[gStyle.button, gStyle.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={gStyle.title}>Sulje</Text>
+              </Pressable>
+              <FlatList
+                data={ravintolat}
+                keyExtractor={(item, index) => index.toString()}
+                contentContainerStyle = {{
+                  padding: 10,
+                }}
+                renderItem={({ item }) => (
+                
+                  <View style={{flexDirection: 'row', padding: 10, marginVertical: 10, backgroundColor: '#ededed', borderRadius: 16, shadowColor: '#000'}}>
         
-          <View style={{flexDirection: 'row', padding: 10, marginVertical: 10, backgroundColor: '#ededed', borderRadius: 16, shadowColor: '#000'}}>
-        
-            <View>
+                  <View>
 
-            <Text style={{fontSize: 18}}>{item.name}</Text>
+                  <Text style={{fontSize: 18}}>{item.name}</Text>
 
-            {item.is_closed ? <Text style={{fontSize: 14}}>Kiini</Text> : <Text style={{fontSize: 14}}>Auki</Text>}  
+                  <Text style={{fontSize: 14}}>{item.address}</Text>
 
-            <Text style={{fontSize: 14}}>{item.address_obj &&
-              item.address_obj.street1}</Text>
+                  </View>
 
-            <Text style={{fontSize: 14}}>{Math.round((item.distance * 1000))}m</Text>
-
+                </View>
+              )}/>
+              <Pressable
+                style={[gStyle.button, gStyle.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={gStyle.title}>Sulje</Text>
+              </Pressable>
             </View>
-
           </View>
-        )}/>
+          </ScrollView>
+        </Modal>
+        <Pressable
+          style={[gStyle.button, gStyle.buttonOpen]}
+          onPress={() => setModalVisible(true)}
+        >
+          <Text style={gStyle.title}>Ravintolat</Text>
+        </Pressable>
+
+    
     </View>
   );
-
+ 
 }
