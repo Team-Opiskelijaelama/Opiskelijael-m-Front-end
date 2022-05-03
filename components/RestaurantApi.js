@@ -3,6 +3,7 @@ import { StyleSheet, ScrollView, Text, View, Button, FlatList, Image, Pressable,
 import * as Location from 'expo-location'; 
 import MapView, { Marker } from 'react-native-maps';
 import { gStyle } from '../styles/style';
+import {API_KEY} from "@env";
 
 export default function RestaurantApi() {
 
@@ -44,7 +45,7 @@ export default function RestaurantApi() {
 
  
   const getRepositories = async () => {
-    const url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + lat + '%2C' + lon + '&radius=3000&type=bar&key=AIzaSyAAdxNfFmOb50zzX8KfRRE4608avohVwPQ';
+    const url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + lat + '%2C' + lon + '&radius=3000&type=bar&key=' + API_KEY;
 
     try {
       const response = await fetch(url);
