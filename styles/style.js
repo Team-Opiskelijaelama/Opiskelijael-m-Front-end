@@ -1,5 +1,5 @@
 import reactDom from 'react-dom';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 export const gStyle = StyleSheet.create({
 
@@ -29,11 +29,6 @@ export const gStyle = StyleSheet.create({
         alignItems: "center",
         elevation: 5
     },
-    button: {
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2
-    },
     buttonOpen: {
         backgroundColor: "#F194FF",
     },
@@ -54,6 +49,49 @@ export const gStyle = StyleSheet.create({
         flex: 1,
         width: "100%",
         height: "100%"
-    }
+    },
+    description: {
+        marginTop: 20,
+        paddingHorizontal: 10,
+        marginHorizontal: 20,
+        backgroundColor: 'white',
+        width: Dimensions.get('screen').width - 40,
+        height: 150,
+        borderRadius: 15,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    descriptionHuge: {
+        marginTop: 20,
+        paddingHorizontal: 10,
+        marginHorizontal: 20,
+        backgroundColor: 'white',
+        width: Dimensions.get('screen').width - 40,
+        height: 360,
+        borderRadius: 15,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    descriptionText: {
+        color: 'black',
+        fontSize: 16,
+    }, 
+    button: {
+        backgroundColor: '#FF6FB5',
+        width: 355,
+        height: 40,
+        borderRadius: 15,
+        marginTop: 20,
+        marginLeft: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontFamily: 'PT-regular',
+    },
+    buttonText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: 'black',
+        fontFamily: 'PT-regular',
+ },
 
 }) 

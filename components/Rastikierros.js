@@ -14,7 +14,7 @@ export default function Rastikierros({ navigation }) {
       const json = await response.json();
       setTapahtuma(json);
     } catch (error) {
-      Alert.alert("voihan", "paska, haku ei toimi. virheilmoitus:" + toString(error))
+      Alert.alert("ei toimi. virheilmoitus:" + toString(error))
     }
   };
 
@@ -22,8 +22,13 @@ export default function Rastikierros({ navigation }) {
 
   return (
     <ScrollView>
-      <View style={gStyle.main}>
-        <Text style={gStyle.title}> {tapahtuma.tapahtumaKuvaus}</Text>
+
+      <View>
+
+        <View style={gStyle.description}>
+          <Text style={gStyle.descriptionText}>{tapahtuma.tapahtumaKuvaus}</Text>
+        </View>
+
         <Modal
           animationType="slide"
           transparent={true}
@@ -55,18 +60,18 @@ export default function Rastikierros({ navigation }) {
           </ScrollView>
         </Modal>
         <Pressable
-          style={[gStyle.button, gStyle.buttonOpen]}
+          style={[gStyle.button]}
           onPress={() => setModalVisible(true)}
         >
-          <Text style={gStyle.title}>Rastikierroksen säännöt</Text>
+          <Text style={gStyle.buttonText}>Rastikierroksen säännöt</Text>
         </Pressable>
         <Pressable
-          style={[gStyle.button, gStyle.buttonOpen]}
+          style={[gStyle.button]}
           onPress={() => {
             navigation.navigate('Tehtavalista');
           }}
         >
-          <Text style={gStyle.title}>Tehtävälista</Text>
+          <Text style={gStyle.buttonText}>Tehtävälista</Text>
         </Pressable>
       </View>
     </ScrollView>

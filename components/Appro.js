@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, ScrollView, Modal, Pressable } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Modal, Pressable, Dimensions } from 'react-native';
 import { gStyle } from '../styles/style';
 import RestaurantApi from './RestaurantApi'
 
@@ -16,7 +16,7 @@ export default function Appro({ navigation }) {
       const json = await response.json();
       setTapahtuma(json);
     } catch (error) {
-      Alert.alert("voihan", "paska, haku ei toimi. virheilmoitus:" + toString(error))
+      Alert.alert("ei toimi. virheilmoitus:" + toString(error))
     }
   };
 
@@ -24,8 +24,12 @@ export default function Appro({ navigation }) {
 
   return (
     <ScrollView>
-      <View style={gStyle.main}>
-        <Text style={gStyle.title}> {tapahtuma.tapahtumaKuvaus}</Text>
+      <View>
+
+        <View style={gStyle.description}>
+          <Text style={gStyle.descriptionText}>{tapahtuma.tapahtumaKuvaus}</Text>
+        </View>
+
         <Modal
           animationType="slide"
           transparent={true}
@@ -44,35 +48,39 @@ export default function Appro({ navigation }) {
               >
                 <Text style={gStyle.title}>Sulje</Text>
               </Pressable>
+
               <Text style={gStyle.title}>Approjen säännöt:</Text>
               <Text style={gStyle.modalText}>{tapahtuma.tapahtumaSaannot} </Text>
+
               <Pressable
                 style={[gStyle.button, gStyle.buttonClose]}
                 onPress={() => setModalVisible(!modalVisible)}
               >
                 <Text style={gStyle.title}>Sulje</Text>
               </Pressable>
+
             </View>
           </View>
           </ScrollView>
         </Modal>
+
         <Pressable
-          style={[gStyle.button, gStyle.buttonOpen]}
+          style={[gStyle.button]}
           onPress={() => setModalVisible(true)}
         >
-          <Text style={gStyle.title}>Approjen säännöt</Text>
+          <Text style={gStyle.buttonText}>Approjen säännöt</Text>
         </Pressable>
+        
         <Pressable
-          style={[gStyle.button, gStyle.buttonOpen]}
+          style={[gStyle.button]}
           onPress={() => {
             navigation.navigate('Ravintolat');
           }}
         >
-          <Text style={gStyle.title}>Ravintolat</Text>
+          <Text style={gStyle.buttonText}>Ravintolat</Text>
         </Pressable>
 
       </View>
     </ScrollView>
   );
 }
-

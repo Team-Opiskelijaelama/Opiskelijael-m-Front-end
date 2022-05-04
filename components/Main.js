@@ -35,9 +35,11 @@ export default function Main({ navigation }) {
       >
 
       <Text style={styles.title}>
-        Opiskelija
+        Opiskelija-
         elämä
       </Text>
+
+      <View>
 
       <View style={styles.row}>
 
@@ -63,6 +65,12 @@ export default function Main({ navigation }) {
 
       </View>
 
+      <Pressable style={styles.buttonLast} onPress={() => navigation.navigate('Juomapeli')}>
+        <Text style={styles.buttonText}>Juomapelit</Text>
+      </Pressable>
+
+      </View>
+
       {/* <FlatList data={tapahtumat} renderItem={({ item }) =>
         <View>
           <Pressable style={styles.button} onPress={() => navigation.navigate(item.tapahtumaNimi)}>
@@ -76,9 +84,7 @@ export default function Main({ navigation }) {
         navigation.navigate('Juomapeli');
       }} />  */}
 
-      <Pressable style={styles.buttonLast} onPress={() => navigation.navigate('Juomapeli')}>
-        <Text style={styles.buttonText}>Juomapelit</Text>
-      </Pressable>
+      
 
       </ImageBackground> : <ActivityIndicator size="large" color='#FF6FB5' />
 
@@ -101,35 +107,35 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
  }, 
  title: {
-    marginTop: 310,
+    marginTop: 300,
     fontSize: 65,
     fontWeight: 'bold',
     color: 'white',
     textShadowColor:'#353839',
     textShadowOffset:{width: 10, height: 5},
     textShadowRadius: 40,
-    width: '77%',
+    width: '80%',
     marginLeft: 25, 
  },
    button: {
     backgroundColor: '#FF6FB5',
     width: 160,
     height: 40,
-    borderRadius: 20,
-    marginTop: 20,
+    borderRadius: 10,
+    marginTop: 15,
     marginLeft: 25,
     justifyContent: 'center',
-    alignItems: 'center' 
+    alignItems: 'center', 
  },
   buttonLast: {
     backgroundColor: '#FF6FB5',
     width: 345,
     height: 40,
-    borderRadius: 20,
-    marginTop: 20,
+    borderRadius: 10,
+    marginTop: 15,
     marginLeft: 25,
     justifyContent: 'center',
-    alignItems: 'center' 
+    alignItems: 'center'
  },
  buttonText: {
     fontSize: 16,

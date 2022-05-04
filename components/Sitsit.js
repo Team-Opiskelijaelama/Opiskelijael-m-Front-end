@@ -22,8 +22,12 @@ export default function Sitsit() {
 
   return (
     <ScrollView>
-      <View style={gStyle.main}>
-        <Text style={gStyle.title}> {tapahtuma.tapahtumaKuvaus}</Text>
+      <View>
+
+        <View style={gStyle.descriptionHuge}>
+          <Text style={gStyle.descriptionText}>{tapahtuma.tapahtumaKuvaus}</Text>
+        </View>
+
         <Modal
           animationType="slide"
           transparent={true}
@@ -47,20 +51,20 @@ export default function Sitsit() {
               <Text style={gStyle.title}>Käytös:</Text>
               <Text style={gStyle.modalText}>{tapahtuma.kaytos} </Text>
               <Pressable
-                style={[gStyle.button, gStyle.buttonClose]}
+                style={[gStyle.button]}
                 onPress={() => setModalVisible(!modalVisible)}
               >
-                <Text style={gStyle.title}>Sulje</Text>
+                <Text style={gStyle.buttonText}>Sulje</Text>
               </Pressable>
             </View>
           </View>
           </ScrollView>
         </Modal>
         <Pressable
-          style={[gStyle.button, gStyle.buttonOpen]}
+          style={[gStyle.button]}
           onPress={() => setModalVisible(true)}
         >
-          <Text style={gStyle.title}>Sitsien säännöt</Text>
+          <Text style={gStyle.buttonText}>Sitsien säännöt</Text>
         </Pressable>
         <Sitsilaulut/>
      </View>

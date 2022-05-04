@@ -18,10 +18,10 @@ export default function Sitsilaulut() {
     return (
         <View>
           <Pressable
-            style={[gStyle.button, gStyle.buttonOpen]}
+            style={[gStyle.button]}
             onPress={getSitsilaulut}
           >
-            <Text style={gStyle.title}>Luo laulukirja</Text>
+            <Text style={gStyle.buttonText}>Luo laulukirja</Text>
           </Pressable>
 
 

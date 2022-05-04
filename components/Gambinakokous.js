@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, ScrollView, Modal, Pressable } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Modal, Pressable, Dimensions } from 'react-native';
 import { gStyle } from '../styles/style';
 
 export default function Gambinakokous() {
@@ -21,8 +21,12 @@ export default function Gambinakokous() {
 
   return (
     <ScrollView>
-      <View style={gStyle.main}>
-        <Text style={gStyle.title}> {tapahtuma.tapahtumaKuvaus}</Text>
+      <View>
+
+        <View style={gStyle.description}>
+          <Text style={gStyle.descriptionText}>{tapahtuma.tapahtumaKuvaus}</Text>
+        </View>
+
         <Modal
           animationType="slide"
           transparent={true}
@@ -54,12 +58,13 @@ export default function Gambinakokous() {
           </ScrollView>
         </Modal>
         <Pressable
-          style={[gStyle.button, gStyle.buttonOpen]}
+          style={[gStyle.button]}
           onPress={() => setModalVisible(true)}
         >
-          <Text style={gStyle.title}>Gambinakokouksen säännöt</Text>
+          <Text style={gStyle.buttonText}>Gambinakokouksen säännöt</Text>
         </Pressable>
       </View>
     </ScrollView>
   );
 }
+
