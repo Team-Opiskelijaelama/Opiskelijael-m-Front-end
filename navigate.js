@@ -20,7 +20,9 @@ export default function Navigate() {
             <Stack.Screen 
                 name='Main'
                 component={Main}
-                options={{title: 'Opiskelijaelämää'}}
+                options={{
+                    headerShown: false
+                }}
                 />
             <Stack.Screen 
                 name='Appro'
