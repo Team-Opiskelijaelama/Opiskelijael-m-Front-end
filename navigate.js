@@ -6,6 +6,7 @@ import Gambinakokous from "./components/Gambinakokous";
 import Rastikierros from './components/Rastikierros';
 import Juomapeli from './components/Juomapeli';
 import Tehtavat from './components/Tehtavat';
+import Sitsilaulut from "./components/Sitsilaulut";
 
 
 import { createStackNavigator } from "@react-navigation/stack";
@@ -58,6 +59,11 @@ export default function Navigate() {
                 name='Ravintolat'
                 component={RestaurantApi}
                 options={{title: 'Ravintolat'}}
+            />
+            <Stack.Screen
+                name='Sitsilaulut'
+                component={Sitsilaulut}
+                options={{title: 'Sitsilaulut'}}
             />
         </Stack.Navigator>
     </NavigationContainer>;

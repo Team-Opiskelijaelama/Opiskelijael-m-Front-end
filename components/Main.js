@@ -22,7 +22,6 @@ export default function Main({ navigation }) {
 
   useEffect(() => { haeTapahtumat() }, []);
 
-
   return (
     
     <View>

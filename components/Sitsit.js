@@ -3,7 +3,7 @@ import { Text, ScrollView, View, Modal, Pressable } from 'react-native';
 import { gStyle } from '../styles/style';
 import Sitsilaulut from './Sitsilaulut'
 
-export default function Sitsit() {
+export default function Sitsit({ navigation }) {
   const [tapahtuma, setTapahtuma] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -14,7 +14,7 @@ export default function Sitsit() {
       const json = await response.json();
       setTapahtuma(json);
     } catch (error) {
-      Alert.alert("voihan", "paska, haku ei toimi. virheilmoitus:" + toString(error))
+      Alert.alert("haku ei toimi. virheilmoitus:" + toString(error))
     }
   };
 
@@ -51,10 +51,10 @@ export default function Sitsit() {
               <Text style={gStyle.title}>Käytös:</Text>
               <Text style={gStyle.modalText}>{tapahtuma.kaytos} </Text>
               <Pressable
-                style={[gStyle.button]}
+                style={[gStyle.button, gStyle.buttonClose]}
                 onPress={() => setModalVisible(!modalVisible)}
               >
-                <Text style={gStyle.buttonText}>Sulje</Text>
+                <Text style={gStyle.title}>Sulje</Text>
               </Pressable>
             </View>
           </View>
@@ -66,8 +66,20 @@ export default function Sitsit() {
         >
           <Text style={gStyle.buttonText}>Sitsien säännöt</Text>
         </Pressable>
-        <Sitsilaulut/>
+
+        {/* <Sitsilaulut/> */}
+
+        <Pressable
+          style={[gStyle.button]}
+          onPress={() => {
+            navigation.navigate('Sitsilaulut');
+          }}
+        >
+          <Text style={gStyle.buttonText}>Luo laulukirja</Text>
+        </Pressable>
+
      </View>
+
     </ScrollView>
   );
 }
