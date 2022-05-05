@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, ScrollView, Modal, Pressable, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Modal, Pressable, Dimensions, ActivityIndicator, } from 'react-native';
 import { gStyle } from '../styles/style';
 import RestaurantApi from './RestaurantApi'
 
@@ -8,6 +8,7 @@ export default function Appro({ navigation }) {
 
   const [tapahtuma, setTapahtuma] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const haeTapahtuma = async () => {
     try {
@@ -15,6 +16,7 @@ export default function Appro({ navigation }) {
         fetch(`https://opiskelijaelamaversio1.herokuapp.com/rest/tapahtuma/A`);
       const json = await response.json();
       setTapahtuma(json);
+      setLoading(true);
     } catch (error) {
       Alert.alert("ei toimi. virheilmoitus:" + toString(error))
     }
@@ -24,6 +26,9 @@ export default function Appro({ navigation }) {
 
   return (
     <ScrollView>
+
+      {loading ?
+
       <View>
 
         <View style={gStyle.description}>
@@ -80,7 +85,11 @@ export default function Appro({ navigation }) {
           <Text style={gStyle.buttonText}>Ravintolat</Text>
         </Pressable>
 
+      </View> : <View style={gStyle.loading}>
+        <ActivityIndicator size="large" color='#FF6FB5'/>
       </View>
+
+    }
     </ScrollView>
   );
 }

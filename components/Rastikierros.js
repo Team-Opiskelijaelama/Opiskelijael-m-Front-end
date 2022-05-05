@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, ScrollView, Modal, Pressable } from 'react-native';
+import { Text, View, ScrollView, Modal, Pressable, ActivityIndicator } from 'react-native';
 import { gStyle } from '../styles/style';
 import Tehtavat from './Tehtavat';
 
 export default function Rastikierros({ navigation }) {
   const [tapahtuma, setTapahtuma] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const haeTapahtuma = async () => {
     try {
@@ -13,6 +14,7 @@ export default function Rastikierros({ navigation }) {
         fetch(`https://opiskelijaelama.herokuapp.com/rest/tapahtuma/R`);
       const json = await response.json();
       setTapahtuma(json);
+      setLoading(true);
     } catch (error) {
       Alert.alert("ei toimi. virheilmoitus:" + toString(error))
     }
@@ -22,6 +24,8 @@ export default function Rastikierros({ navigation }) {
 
   return (
     <ScrollView style={{flex: 1}}>
+
+      {loading ?
 
       <View>
 
@@ -73,7 +77,13 @@ export default function Rastikierros({ navigation }) {
         >
           <Text style={gStyle.buttonText}>Tehtävälista</Text>
         </Pressable>
-      </View>
+
+        </View> : <View style={gStyle.loading}>
+          <ActivityIndicator size="large" color='#FF6FB5'/>
+        </View>
+
+        }
+
     </ScrollView>
   );
 }

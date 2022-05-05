@@ -15,7 +15,6 @@ export default function Sitsilaulut() {
           fetch(`https://opiskelijaelama.herokuapp.com/rest/laulut`);
         const json = await response.json();
         setLaulut(json);
-        console.log(laulut);
         setLoading(true);
           } catch (error) {
       Alert.alert("haku ei toimi. virheilmoitus:" + toString(error))

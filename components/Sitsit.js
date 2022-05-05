@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Text, ScrollView, View, Modal, Pressable } from 'react-native';
+import { Text, ScrollView, View, Modal, Pressable, ActivityIndicator } from 'react-native';
 import { gStyle } from '../styles/style';
 import Sitsilaulut from './Sitsilaulut'
 
 export default function Sitsit({ navigation }) {
   const [tapahtuma, setTapahtuma] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const haeTapahtuma = async () => {
     try {
@@ -13,6 +14,7 @@ export default function Sitsit({ navigation }) {
         fetch(`https://opiskelijaelamaversio1.herokuapp.com/rest/tapahtuma/S`);
       const json = await response.json();
       setTapahtuma(json);
+      setLoading(true);
     } catch (error) {
       Alert.alert("haku ei toimi. virheilmoitus:" + toString(error))
     }
@@ -22,7 +24,10 @@ export default function Sitsit({ navigation }) {
 
   return (
     <ScrollView>
-      <View>
+
+        {loading ?
+
+        <View>
 
         <View style={gStyle.description}>
           <Text style={gStyle.descriptionText}>{tapahtuma.tapahtumaKuvaus}</Text>
@@ -78,7 +83,11 @@ export default function Sitsit({ navigation }) {
           <Text style={gStyle.buttonText}>Luo laulukirja</Text>
         </Pressable>
 
-     </View>
+        </View> : <View style={gStyle.loading}>
+          <ActivityIndicator size="large" color='#FF6FB5'/>
+        </View>
+
+        }
 
     </ScrollView>
   );

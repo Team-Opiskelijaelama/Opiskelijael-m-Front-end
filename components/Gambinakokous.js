@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, ScrollView, Modal, Pressable, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Modal, Pressable, Dimensions, ActivityIndicator } from 'react-native';
 import { gStyle } from '../styles/style';
 
 export default function Gambinakokous() {
   const [tapahtuma, setTapahtuma] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const haeTapahtuma = async () => {
     try {
@@ -12,8 +13,9 @@ export default function Gambinakokous() {
         fetch(`https://opiskelijaelama.herokuapp.com/rest/tapahtuma/G`);
       const json = await response.json();
       setTapahtuma(json);
+      setLoading(true);
     } catch (error) {
-      Alert.alert("voihan", "paska, haku ei toimi. virheilmoitus:" + toString(error))
+      Alert.alert("haku ei toimi. virheilmoitus:" + toString(error))
     }
   };
 
@@ -21,7 +23,10 @@ export default function Gambinakokous() {
 
   return (
     <ScrollView>
-      <View>
+
+        {loading ?
+
+        <View>
 
         <View style={gStyle.description}>
           <Text style={gStyle.descriptionText}>{tapahtuma.tapahtumaKuvaus}</Text>
@@ -63,7 +68,10 @@ export default function Gambinakokous() {
         >
           <Text style={gStyle.buttonText}>Gambinakokouksen säännöt</Text>
         </Pressable>
+      </View> : <View style={gStyle.loading}>
+        <ActivityIndicator size="large" color='#FF6FB5'/>
       </View>
+      }
     </ScrollView>
   );
 }

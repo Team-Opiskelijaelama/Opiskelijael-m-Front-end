@@ -33,8 +33,6 @@ export default function Main({ navigation }) {
         style={styles.image}
       >
 
-      
-
       <View style={styles.allButtons}>
 
       <Text style={styles.title}>Opiskelija- elämä</Text>
@@ -81,10 +79,10 @@ export default function Main({ navigation }) {
       {/* <Button title={'Juomapelit'} onPress={() => {
         navigation.navigate('Juomapeli');
       }} />  */}
-
       
-
-      </ImageBackground> : <ActivityIndicator size="large" color='#FF6FB5' />
+      </ImageBackground> : <View style={gStyle.loading}>
+        <ActivityIndicator size="large" color='#FF6FB5'/>
+      </View>
 
     }
 
