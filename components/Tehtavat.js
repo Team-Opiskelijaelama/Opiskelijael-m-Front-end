@@ -1,32 +1,33 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, ScrollView, Text, View, Button, FlatList, Image, Pressable } from "react-native";
+import { StyleSheet, ScrollView, Text, View, Button, FlatList, Image, Pressable, ActivityIndicator, Dimensions } from "react-native";
 import { gStyle } from '../styles/style';
 
 export default function Tehtavat() {
 
-    const [tehtavat, setTehtavat] = useState([]);
+    const [tehtavat, setTehtavat] = useState([]);    
+    const [loading, setLoading] = useState(false);
     
-    const getTehtavat = () => {
-        fetch(`https://opiskelijaelama.herokuapp.com/rest/tehtavat`)
-        .then(response => response.json())
-        .then(data => setTehtavat(data))
-        .catch(err => {
-        console.error(err);
-        
-      });
+    const getTehtavat = async () => {
+      try {
+        const response = await
+          fetch(`https://opiskelijaelama.herokuapp.com/rest/tehtavat`)
+        const json = await response.json();
+        setTehtavat(json);
+        console.log(tehtavat);
+        setLoading(true);
+          } catch (error) {
+      Alert.alert("haku ei toimi. virheilmoitus:" + toString(error))
     }
+  };
 
-
-    
+    useEffect(() => { getTehtavat() }, []);
 
     return (
-      <ScrollView>
-        <Pressable
-          style={[gStyle.button, gStyle.buttonOpen]}
-          onPress={getTehtavat}
-        >
-          <Text style={gStyle.title}>Luo tehtäviä</Text>
-        </Pressable>
+      <View>
+
+      {loading ?
+
+      <View style={styles.allButtons}>
 
       <FlatList
         data={tehtavat}
@@ -36,14 +37,41 @@ export default function Tehtavat() {
         }}
         renderItem={({ item }) => (
         
-          <View style = {{ alignItems:"center", padding: 10, paddingHorizontal: 30, marginVertical: 10, backgroundColor: '#ededed', borderRadius: 16, shadowColor: '#000'}}>
-              <Text>{item.tehtavaNimi}</Text>
-              <Text>{item.tehtavaKuvaus}</Text>
-              
-
-
-          </View>
+      <View style={styles.box}>
+        <Text style={styles.text}>{item.tehtavaId}. {item.tehtavaNimi}</Text>
+        <Text style={styles.text}>{item.tehtavaKuvaus}</Text>
+      </View>
         )}/>
-        </ScrollView>
+
+        </View> : <View style={gStyle.loading}>
+          <ActivityIndicator size="large" color='#FF6FB5'/>
+        </View>
+
+        }
+
+        </View>
     );
 }
+
+const styles = StyleSheet.create({
+  allButtons: {
+    alignItems: 'center', 
+  },
+  box: {
+    marginTop: 20,
+    marginHorizontal: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    backgroundColor: 'white',
+    width: 340,
+    borderRadius: 15,
+    justifyContent: 'center',
+    alignItems: 'center'
+ },
+  text: {
+    fontSize: 14,
+    color: 'black',
+ },
+
+
+});

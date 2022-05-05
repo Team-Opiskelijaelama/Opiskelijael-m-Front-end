@@ -75,7 +75,7 @@ export default function Rastikierros({ navigation }) {
             navigation.navigate('Tehtavalista');
           }}
         >
-          <Text style={gStyle.buttonText}>Tehtävälista</Text>
+          <Text style={gStyle.buttonText}>Luo tehtävälista</Text>
         </Pressable>
 
         </View> : <View style={gStyle.loading}>
