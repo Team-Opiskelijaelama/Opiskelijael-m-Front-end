@@ -78,7 +78,7 @@ export const gStyle = StyleSheet.create({
     }, 
     button: {
         backgroundColor: '#FF6FB5',
-        width: 355,
+        width: Dimensions.get('screen').width - 40,
         height: 40,
         borderRadius: 15,
         marginTop: 20,

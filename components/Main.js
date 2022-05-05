@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Button, FlatList, Alert, Pressable, ScrollView, ImageBackground, ActivityIndicator} from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList, Alert, Pressable, ScrollView, ImageBackground, ActivityIndicator, Dimensions} from 'react-native';
 import { gStyle } from '../styles/style';
 import Juomapeli from './Juomapeli';
 
@@ -33,12 +33,11 @@ export default function Main({ navigation }) {
         style={styles.image}
       >
 
-      <Text style={styles.title}>
-        Opiskelija-
-        elämä
-      </Text>
+      
 
-      <View>
+      <View style={styles.allButtons}>
+
+      <Text style={styles.title}>Opiskelija- elämä</Text>
 
       <View style={styles.row}>
 
@@ -98,37 +97,45 @@ export default function Main({ navigation }) {
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
+    
   },
   image: {
     width: '100%', 
-    height: '80%', 
+    height: '100%', 
     resizeMode: 'cover',
     justifyContent: 'center',
+    zIndex: -2,
+    
  }, 
  title: {
-    marginTop: 300,
+    marginTop: '50%',
     fontSize: 65,
     fontWeight: 'bold',
     color: 'white',
     textShadowColor:'#353839',
     textShadowOffset:{width: 10, height: 5},
     textShadowRadius: 40,
-    width: '80%',
+    width: '90%',
     marginLeft: 25, 
  },
-   button: {
+  allButtons: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0, 0.60)'
+  },
+  button: {
     backgroundColor: '#FF6FB5',
-    width: 160,
+    width: Dimensions.get('screen').width - 235,
     height: 40,
     borderRadius: 10,
     marginTop: 15,
     marginLeft: 25,
     justifyContent: 'center',
     alignItems: 'center', 
+
  },
   buttonLast: {
     backgroundColor: '#FF6FB5',
-    width: 345,
+    width: Dimensions.get('screen').width - 50,
     height: 40,
     borderRadius: 10,
     marginTop: 15,
