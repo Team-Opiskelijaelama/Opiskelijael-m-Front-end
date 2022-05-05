@@ -42,7 +42,7 @@ export default function Main({ navigation }) {
       <View style={styles.row}>
 
       <Pressable style={styles.button} onPress={() => navigation.navigate(tapahtumat[0].tapahtumaNimi)}>
-              <Text style={styles.buttonText}>{tapahtumat[0].tapahtumaNimi}</Text>
+              <Text style={styles.buttonText}>{tapahtumat[0].tapahtumaNimi} </Text>
       </Pressable>
 
       <Pressable style={styles.button} onPress={() => navigation.navigate(tapahtumat[1].tapahtumaNimi)}>
@@ -54,7 +54,7 @@ export default function Main({ navigation }) {
       <View style={styles.row}>
 
       <Pressable style={styles.button} onPress={() => navigation.navigate(tapahtumat[2].tapahtumaNimi)}>
-              <Text style={styles.buttonText}>{tapahtumat[2].tapahtumaNimi}</Text>
+              <Text style={styles.buttonText}>{tapahtumat[2].tapahtumaNimi} </Text>
       </Pressable>
 
       <Pressable style={styles.button} onPress={() => navigation.navigate(tapahtumat[3].tapahtumaNimi)}>
@@ -97,6 +97,7 @@ export default function Main({ navigation }) {
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
+    justifyContent:'space-between',
     
   },
   image: {
@@ -109,37 +110,37 @@ const styles = StyleSheet.create({
  }, 
  title: {
     marginTop: '50%',
-    fontSize: 65,
+    fontSize: 60,
     fontWeight: 'bold',
     color: 'white',
     textShadowColor:'#353839',
     textShadowOffset:{width: 10, height: 5},
     textShadowRadius: 40,
-    width: '90%',
-    marginLeft: 25, 
+    width: 340,
  },
   allButtons: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0, 0.60)'
+    backgroundColor: 'rgba(0,0,0, 0.60)',
+    alignItems: 'center', 
+
   },
   button: {
     backgroundColor: '#FF6FB5',
-    width: Dimensions.get('screen').width - 235,
+    width: 160,
     height: 40,
     borderRadius: 10,
     marginTop: 15,
-    marginLeft: 25,
     justifyContent: 'center',
     alignItems: 'center', 
+    marginHorizontal: 10
 
  },
   buttonLast: {
     backgroundColor: '#FF6FB5',
-    width: Dimensions.get('screen').width - 50,
+    width: 340,
     height: 40,
     borderRadius: 10,
     marginTop: 15,
-    marginLeft: 25,
     justifyContent: 'center',
     alignItems: 'center'
  },

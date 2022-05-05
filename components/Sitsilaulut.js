@@ -74,7 +74,9 @@ export default function Sitsilaulut() {
         </View>
         )}/> */}
 
-    </View> : <ActivityIndicator size="large" color='#FF6FB5' />
+    </View> : <View style={gStyle.loading}>
+      <ActivityIndicator size="large" color='#FF6FB5'/>
+    </View>
 
     }
       
@@ -99,5 +101,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: 'black',
  },
+
 
 });

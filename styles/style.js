@@ -8,16 +8,20 @@ export const gStyle = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0, 0.60)'
     },
     title: {
-        fontSize: 20, 
+        fontSize: 16, 
         color: '#333',
-        fontFamily: 'PT-regular',
+        //fontFamily: 'PT-regular',
         textAlign: 'center',
+        fontWeight: 'bold',
+        color: 'black',
+        margin: 10,
     },
     centeredView: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
         marginTop: 30
+        
     },
     modalView: {
         margin: 20,
@@ -31,11 +35,12 @@ export const gStyle = StyleSheet.create({
         backgroundColor: "#F194FF",
     },
     buttonClose: {
-        backgroundColor: "#2196F3",
+        backgroundColor: '#FF6FB5',
     },
     modalText: {
-        marginBottom: 15,
-        textAlign: "center"
+        marginBottom: 10,
+        textAlign: "center",
+        fontSize: 16, 
     },
     container: {
         flex: 1,
@@ -59,17 +64,6 @@ export const gStyle = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    descriptionHuge: {
-        marginTop: 20,
-        marginHorizontal: 20,
-        paddingHorizontal: 10,
-        paddingVertical: 20,
-        backgroundColor: 'white',
-        width: Dimensions.get('screen').width - 40,
-        borderRadius: 15,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
     descriptionText: {
         color: 'black',
         fontSize: 16,
@@ -81,6 +75,7 @@ export const gStyle = StyleSheet.create({
         borderRadius: 15,
         marginTop: 20,
         marginLeft: 20,
+        marginRight: 20,
         justifyContent: 'center',
         alignItems: 'center',
         fontFamily: 'PT-regular',
@@ -89,7 +84,10 @@ export const gStyle = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         color: 'black',
-        fontFamily: 'PT-regular',
- },
+        //fontFamily: 'PT-regular',
+    },
+    loading: {
+        marginTop: '50%',
+    },
 
 }) 
