@@ -21,7 +21,7 @@ export default function Rastikierros({ navigation }) {
   useEffect(() => { haeTapahtuma() }, []);
 
   return (
-    <ScrollView>
+    <ScrollView style={{flex: 1}}>
 
       <View>
 

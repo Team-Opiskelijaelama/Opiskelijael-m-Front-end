@@ -5,9 +5,7 @@ export const gStyle = StyleSheet.create({
 
     main: {
         flex: 1,
-        padding: 20,
-        paddingTop: 20,        
-        //backgroundColor: ''
+        backgroundColor: 'rgba(0,0,0, 0.60)'
     },
     title: {
         fontSize: 20, 
@@ -52,22 +50,22 @@ export const gStyle = StyleSheet.create({
     },
     description: {
         marginTop: 20,
-        paddingHorizontal: 10,
         marginHorizontal: 20,
+        paddingHorizontal: 10,
+        paddingVertical: 10,
         backgroundColor: 'white',
         width: Dimensions.get('screen').width - 40,
-        height: 150,
         borderRadius: 15,
         justifyContent: 'center',
         alignItems: 'center'
     },
     descriptionHuge: {
         marginTop: 20,
-        paddingHorizontal: 10,
         marginHorizontal: 20,
+        paddingHorizontal: 10,
+        paddingVertical: 20,
         backgroundColor: 'white',
         width: Dimensions.get('screen').width - 40,
-        height: 360,
         borderRadius: 15,
         justifyContent: 'center',
         alignItems: 'center'

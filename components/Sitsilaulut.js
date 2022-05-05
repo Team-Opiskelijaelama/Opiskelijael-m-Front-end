@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, SafeAreaView, Text, View, Button, FlatList, Image, Pressable, ActivityIndicator, Dimensions } from "react-native";
+import { StyleSheet, SafeAreaView, Text, View, Button, FlatList, Image, Pressable, ActivityIndicator, Dimensions, ScrollView } from "react-native";
 import { gStyle } from '../styles/style';
 
 export default function Sitsilaulut() {
 
     const [laulut, setLaulut] = useState([]);
     const [loading, setLoading] = useState(false);
+
+    const randomSong = Math.floor(Math.random() * (12 - 4 + 1)) + 4;
     
     const getSitsilaulut = async () => {
       try {
@@ -13,6 +15,7 @@ export default function Sitsilaulut() {
           fetch(`https://opiskelijaelama.herokuapp.com/rest/laulut`);
         const json = await response.json();
         setLaulut(json);
+        console.log(laulut);
         setLoading(true);
           } catch (error) {
       Alert.alert("haku ei toimi. virheilmoitus:" + toString(error))
@@ -23,18 +26,38 @@ export default function Sitsilaulut() {
 
   return (
     
-    <View>
+    <ScrollView>
 
     {loading ?
 
     <View>
 
     <View style={styles.box}>
-      <Text style={styles.text}>1. {laulut[0].lauluNimi} (Pakollinen)</Text>
-      <Text>{laulut[0].sanat}</Text>
+      <Text style={styles.text}>1. {laulut[0].lauluNimi} (Pakollinen){"\n"}</Text>
+      <Text style={styles.text}>{laulut[0].sanat}</Text>
     </View>
 
-     <FlatList
+    <View style={styles.box}>
+      <Text style={styles.text}>2. {laulut[1].lauluNimi} (Pakollinen){"\n"}</Text>
+      <Text style={styles.text}>{laulut[1].sanat}</Text>
+    </View>
+
+    <View style={styles.box}>
+      <Text style={styles.text}>3. {laulut[2].lauluNimi} (Pakollinen){"\n"}</Text>
+      <Text style={styles.text}>{laulut[2].sanat}</Text>
+    </View>
+
+    <View style={styles.box}>
+      <Text style={styles.text}>4. {laulut[3].lauluNimi} (Pakollinen){"\n"}</Text>
+      <Text style={styles.text}>{laulut[3].sanat}</Text>
+    </View>
+
+    <View style={styles.box}>
+      <Text style={styles.text}>5. {laulut[randomSong].lauluNimi} {"\n"}</Text>
+      <Text style={styles.text}>{laulut[randomSong].sanat}</Text>
+    </View>
+
+     {/* <FlatList
         data={laulut}
         keyExtractor={(item, index) => index.toString()}
         contentContainerStyle = {{
@@ -49,13 +72,13 @@ export default function Sitsilaulut() {
               <Text></Text>
             <Text>{item.sanat}</Text>
         </View>
-        )}/>
+        )}/> */}
 
     </View> : <ActivityIndicator size="large" color='#FF6FB5' />
 
     }
       
-    </View>
+    </ScrollView>
     );
 
 }
@@ -63,20 +86,18 @@ export default function Sitsilaulut() {
 const styles = StyleSheet.create({
   box: {
     marginTop: 20,
-    paddingHorizontal: 10,
     marginHorizontal: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 20,
     backgroundColor: 'white',
     width: Dimensions.get('screen').width - 40,
-    height: 360,
     borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center'
  },
-  buttonText: {
-    fontSize: 16,
-    fontWeight: 'bold',
+  text: {
+    fontSize: 14,
     color: 'black',
-
  },
 
 });

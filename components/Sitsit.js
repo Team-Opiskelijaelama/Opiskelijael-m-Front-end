@@ -24,7 +24,7 @@ export default function Sitsit({ navigation }) {
     <ScrollView>
       <View>
 
-        <View style={gStyle.descriptionHuge}>
+        <View style={gStyle.description}>
           <Text style={gStyle.descriptionText}>{tapahtuma.tapahtumaKuvaus}</Text>
         </View>
 
