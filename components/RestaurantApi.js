@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, ScrollView, Text, View, Button, FlatList, Image, Pressable, Modal } from "react-native";
+import { StyleSheet, ScrollView, Text, View, Button, FlatList, Image, Pressable, Modal} from "react-native";
 import * as Location from 'expo-location'; 
 import MapView, { Marker } from 'react-native-maps';
+import Checkbox from 'expo-checkbox';
 import { gStyle } from '../styles/style';
 import {API_KEY} from "@env";
+import { setStatusBarStyle } from "expo-status-bar";
 
 export default function RestaurantApi() {
 
@@ -15,6 +17,19 @@ export default function RestaurantApi() {
   const [lon, setLon] = useState('');
 
   const [modalVisible, setModalVisible] = useState(false);
+
+
+
+  const handleChange = (id) => {
+    let temp = ravintolat.map((ravintola) => {
+      if (id === ravintola.indeksi) {
+        return { ...ravintola, isChecked: !ravintola.isChecked };
+      }
+      return ravintola;
+    });
+    setRavintolat(temp);
+  };
+
 
   const initial = {
     latitude: 61.92411,
@@ -45,20 +60,20 @@ export default function RestaurantApi() {
 
  
   const getRepositories = async () => {
-    const url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + lat + '%2C' + lon + '&radius=3000&type=bar&key=' + API_KEY;
+    const url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=baari&location=' + lat + '%2C' + lon + '&radius=2000&key=' + API_KEY;
 
     try {
       const response = await fetch(url);
       const data = await response.json();
 
 
-    for (let i = 0; i < data.results.length; i++) {
-      setRavintolat((ravintolat) => [...ravintolat, { name: data.results[i].name, lat: data.results[i].geometry.location.lat , lon: data.results[i].geometry.location.lng, open: data.results[i].opening_hours.open_now, address: data.results[i].vicinity }] 
+    for (let i = 0; i < 6; i++) {
+      setRavintolat((ravintolat) => [...ravintolat, { name: data.results[i].name, lat: data.results[i].geometry.location.lat , lon: data.results[i].geometry.location.lng, open: data.results[i].opening_hours.open_now, address: data.results[i].vicinity, isChecked: false, indeksi: i }] 
       )
     }
-
   
     console.log(ravintolat);
+
 
 
     } catch (error) {
@@ -73,10 +88,10 @@ export default function RestaurantApi() {
         style={gStyle.map}
         region={region}
       >
-        {/*<Marker
-          coordinate={{latitude: Number(ravintolat[0].lat), longitude: Number(ravintolat[0].lon)}}
-          title='HaettuPaikka'
-    />*/}
+        <Marker
+          coordinate={{latitude: Number(lat), longitude: Number(lon)}}
+          title='Oma Sijaintisi'
+        />
         {ravintolat.map((item, index) => (
           <Marker key={index} title={item.name} coordinate={{latitude: Number(item.lat), longitude: Number(item.lon)}}/>
         ))}
@@ -102,15 +117,10 @@ export default function RestaurantApi() {
             setModalVisible(!modalVisible);
           }}
         >
-          <ScrollView>
+
           <View style={gStyle.centeredView}>
             <View style={gStyle.modalView}>
-              <Pressable
-                style={[gStyle.button, gStyle.buttonClose]}
-                onPress={() => setModalVisible(!modalVisible)}
-              >
-                <Text style={gStyle.title}>Sulje</Text>
-              </Pressable>
+
               <FlatList
                 data={ravintolat}
                 keyExtractor={(item, index) => index.toString()}
@@ -120,12 +130,21 @@ export default function RestaurantApi() {
                 renderItem={({ item }) => (
                 
                   <View style={{flexDirection: 'row', padding: 10, marginVertical: 10, backgroundColor: '#ededed', borderRadius: 16, shadowColor: '#000'}}>
-        
+                  
+                  <Checkbox
+                    value={item.isChecked}
+                    onValueChange={() => {
+                      handleChange(item.indeksi);
+                    }}
+                    style={gStyle.checkbox}
+                  />         
+                  
                   <View>
-
+         
                   <Text style={{fontSize: 18}}>{item.name}</Text>
 
                   <Text style={{fontSize: 14}}>{item.address}</Text>
+                  
 
                   </View>
 
@@ -139,7 +158,7 @@ export default function RestaurantApi() {
               </Pressable>
             </View>
           </View>
-          </ScrollView>
+
         </Modal>
         <Pressable
           style={[gStyle.button, gStyle.buttonOpen]}

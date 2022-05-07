@@ -89,5 +89,15 @@ export const gStyle = StyleSheet.create({
     loading: {
         marginTop: '50%',
     },
+    checkbox: {
+        alignSelf: "center",
+    },
+    input: {
+        height: 100,
+        margin: 12,
+        borderWidth: 1,
+        padding: 10,
+        textAlignVertical: "top",
+    },
 
 }) 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ScrollView, Modal, Pressable, Dimensions, ActivityIndicator } from 'react-native';
 import { gStyle } from '../styles/style';
 
-export default function Gambinakokous() {
+export default function Gambinakokous({ navigation }) {
   const [tapahtuma, setTapahtuma] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -67,6 +67,14 @@ export default function Gambinakokous() {
           onPress={() => setModalVisible(true)}
         >
           <Text style={gStyle.buttonText}>Gambinakokouksen säännöt</Text>
+        </Pressable>
+        <Pressable
+          style={[gStyle.button]}
+          onPress={() => {
+            navigation.navigate('Poytakirja');
+          }}
+        >
+          <Text style={gStyle.buttonText}>Pöytäkirjaehdotus</Text>
         </Pressable>
       </View> : <View style={gStyle.loading}>
         <ActivityIndicator size="large" color='#FF6FB5'/>

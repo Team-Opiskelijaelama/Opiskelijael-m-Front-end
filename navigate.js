@@ -7,7 +7,7 @@ import Rastikierros from './components/Rastikierros';
 import Juomapeli from './components/Juomapeli';
 import Tehtavat from './components/Tehtavat';
 import Sitsilaulut from "./components/Sitsilaulut";
-
+import Poytakirja from "./components/Poytakirja";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
@@ -64,6 +64,11 @@ export default function Navigate() {
                 name='Sitsilaulut'
                 component={Sitsilaulut}
                 options={{title: 'Sitsilaulut'}}
+            />
+            <Stack.Screen
+                name='Poytakirja'
+                component={Poytakirja}
+                options={{title: 'Pöytäkirja'}}
             />
         </Stack.Navigator>
     </NavigationContainer>;
