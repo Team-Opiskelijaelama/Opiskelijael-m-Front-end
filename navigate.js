@@ -46,27 +46,27 @@ export default function Navigate() {
                 options={{title: 'Rastikierros'}}
                 />
             <Stack.Screen 
-                name='Juomapeli'
+                name='Games'
                 component={Juomapeli}
                 options={{title: 'Juomapelit'}}
                 />
             <Stack.Screen
-                name='Tehtavalista'
+                name='Tasklist'
                 component={Tehtavat}
                 options={{title: 'Tehtävälista'}}
             />
             <Stack.Screen
-                name='Ravintolat'
+                name='Bars'
                 component={RestaurantApi}
                 options={{title: 'Ravintolat'}}
             />
             <Stack.Screen
-                name='Sitsilaulut'
+                name='Songs'
                 component={Sitsilaulut}
                 options={{title: 'Sitsilaulut'}}
             />
             <Stack.Screen
-                name='Poytakirja'
+                name='Transcript'
                 component={Poytakirja}
                 options={{title: 'Pöytäkirja'}}
             />

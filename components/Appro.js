@@ -1,28 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, ScrollView, Modal, Pressable, Dimensions, ActivityIndicator, } from 'react-native';
+import { Text, View, ScrollView, Modal, Pressable, Dimensions, ActivityIndicator, } from 'react-native';
 import { gStyle } from '../styles/style';
-import RestaurantApi from './RestaurantApi'
 
 
 export default function Appro({ navigation }) {
 
-  const [tapahtuma, setTapahtuma] = useState({});
+  const [event, setEvent] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const haeTapahtuma = async () => {
+  const fetchEvent = async () => {
     try {
       const response = await
         fetch(`https://opiskelijaelamaversio1.herokuapp.com/rest/tapahtuma/A`);
       const json = await response.json();
-      setTapahtuma(json);
+      setEvent(json);
       setLoading(true);
     } catch (error) {
       Alert.alert("ei toimi. virheilmoitus:" + toString(error))
     }
   };
 
-  useEffect(() => { haeTapahtuma() }, []);
+  useEffect(() => { fetchEvent() }, []);
 
   return (
     <ScrollView>
@@ -32,7 +31,7 @@ export default function Appro({ navigation }) {
       <View>
 
         <View style={gStyle.description}>
-          <Text style={gStyle.descriptionText}>{tapahtuma.tapahtumaKuvaus}</Text>
+          <Text style={gStyle.descriptionText}>{event.tapahtumaKuvaus}</Text>
         </View>
 
         <Modal
@@ -55,7 +54,7 @@ export default function Appro({ navigation }) {
               </Pressable>
 
               <Text style={gStyle.title}>Approjen säännöt:</Text>
-              <Text style={gStyle.modalText}>{tapahtuma.tapahtumaSaannot} </Text>
+              <Text style={gStyle.modalText}>{event.tapahtumaSaannot} </Text>
 
               <Pressable
                 style={[gStyle.button, gStyle.buttonClose]}
@@ -79,7 +78,7 @@ export default function Appro({ navigation }) {
         <Pressable
           style={[gStyle.button]}
           onPress={() => {
-            navigation.navigate('Ravintolat');
+            navigation.navigate('Bars');
           }}
         >
           <Text style={gStyle.buttonText}>Ravintolat</Text>

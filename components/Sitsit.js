@@ -1,26 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { Text, ScrollView, View, Modal, Pressable, ActivityIndicator } from 'react-native';
 import { gStyle } from '../styles/style';
-import Sitsilaulut from './Sitsilaulut'
 
 export default function Sitsit({ navigation }) {
-  const [tapahtuma, setTapahtuma] = useState({});
+  const [event, setEvent] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const haeTapahtuma = async () => {
+  const fetchEvent = async () => {
     try {
       const response = await
         fetch(`https://opiskelijaelamaversio1.herokuapp.com/rest/tapahtuma/S`);
       const json = await response.json();
-      setTapahtuma(json);
+      setEvent(json);
       setLoading(true);
     } catch (error) {
       Alert.alert("haku ei toimi. virheilmoitus:" + toString(error))
     }
   };
 
-  useEffect(() => { haeTapahtuma() }, []);
+  useEffect(() => { fetchEvent() }, []);
 
   return (
     <ScrollView>
@@ -30,7 +29,7 @@ export default function Sitsit({ navigation }) {
         <View>
 
         <View style={gStyle.description}>
-          <Text style={gStyle.descriptionText}>{tapahtuma.tapahtumaKuvaus}</Text>
+          <Text style={gStyle.descriptionText}>{event.tapahtumaKuvaus}</Text>
         </View>
 
         <Modal
@@ -52,9 +51,9 @@ export default function Sitsit({ navigation }) {
                 <Text style={gStyle.title}>Sulje</Text>
               </Pressable>
               <Text style={gStyle.title}>Sitsien säännöt:</Text>
-              <Text style={gStyle.modalText}>{tapahtuma.tapahtumaSaannot} </Text>
+              <Text style={gStyle.modalText}>{event.tapahtumaSaannot} </Text>
               <Text style={gStyle.title}>Käytös:</Text>
-              <Text style={gStyle.modalText}>{tapahtuma.kaytos} </Text>
+              <Text style={gStyle.modalText}>{event.kaytos} </Text>
               <Pressable
                 style={[gStyle.button, gStyle.buttonClose]}
                 onPress={() => setModalVisible(!modalVisible)}
@@ -77,7 +76,7 @@ export default function Sitsit({ navigation }) {
         <Pressable
           style={[gStyle.button]}
           onPress={() => {
-            navigation.navigate('Sitsilaulut');
+            navigation.navigate('Songs');
           }}
         >
           <Text style={gStyle.buttonText}>Luo laulukirja</Text>

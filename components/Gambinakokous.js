@@ -3,23 +3,23 @@ import { StyleSheet, Text, View, ScrollView, Modal, Pressable, Dimensions, Activ
 import { gStyle } from '../styles/style';
 
 export default function Gambinakokous({ navigation }) {
-  const [tapahtuma, setTapahtuma] = useState({});
+  const [event, setEvent] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const haeTapahtuma = async () => {
+  const fetchEvent = async () => {
     try {
       const response = await
         fetch(`https://opiskelijaelama.herokuapp.com/rest/tapahtuma/G`);
       const json = await response.json();
-      setTapahtuma(json);
+      setEvent(json);
       setLoading(true);
     } catch (error) {
       Alert.alert("haku ei toimi. virheilmoitus:" + toString(error))
     }
   };
 
-  useEffect(() => { haeTapahtuma() }, []);
+  useEffect(() => { fetchEvent() }, []);
 
   return (
     <ScrollView>
@@ -29,7 +29,7 @@ export default function Gambinakokous({ navigation }) {
         <View>
 
         <View style={gStyle.description}>
-          <Text style={gStyle.descriptionText}>{tapahtuma.tapahtumaKuvaus}</Text>
+          <Text style={gStyle.descriptionText}>{event.tapahtumaKuvaus}</Text>
         </View>
 
         <Modal
@@ -51,7 +51,7 @@ export default function Gambinakokous({ navigation }) {
                 <Text style={gStyle.title}>Sulje</Text>
               </Pressable>
               <Text style={gStyle.title}>Gambinakokouksen säännöt:</Text>
-              <Text style={gStyle.modalText}>{tapahtuma.tapahtumaSaannot} </Text>
+              <Text style={gStyle.modalText}>{event.tapahtumaSaannot} </Text>
               <Pressable
                 style={[gStyle.button, gStyle.buttonClose]}
                 onPress={() => setModalVisible(!modalVisible)}
@@ -71,10 +71,10 @@ export default function Gambinakokous({ navigation }) {
         <Pressable
           style={[gStyle.button]}
           onPress={() => {
-            navigation.navigate('Poytakirja');
+            navigation.navigate('Transcript');
           }}
         >
-          <Text style={gStyle.buttonText}>Pöytäkirjaehdotus</Text>
+          <Text style={gStyle.buttonText}>Pöytäkirjapohja</Text>
         </Pressable>
       </View> : <View style={gStyle.loading}>
         <ActivityIndicator size="large" color='#FF6FB5'/>

@@ -1,26 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Button, FlatList, Alert, Pressable, ScrollView, ImageBackground, ActivityIndicator, Dimensions} from 'react-native';
+import { StyleSheet, Text, View, Alert, Pressable, ImageBackground, ActivityIndicator, Dimensions} from 'react-native';
 import { gStyle } from '../styles/style';
-import Juomapeli from './Juomapeli';
 
 export default function Main({ navigation }) {
 
-  const [tapahtumat, setTapahtumat] = useState([]);
+  const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const haeTapahtumat = async () => {
+  const fetchEvents = async () => {
     try {
       const response = await
         fetch(`https://opiskelijaelama.herokuapp.com/rest/tapahtumat`);
       const json = await response.json();
-      setTapahtumat(json);
+      setEvents(json);
       setLoading(true);
     } catch (error) {
       Alert.alert("haku ei toimi. virheilmoitus:" + toString(error))
     }
   };
 
-  useEffect(() => { haeTapahtumat() }, []);
+  useEffect(() => { fetchEvents() }, []);
 
   return (
     
@@ -39,29 +38,29 @@ export default function Main({ navigation }) {
 
       <View style={styles.row}>
 
-      <Pressable style={styles.button} onPress={() => navigation.navigate(tapahtumat[0].tapahtumaNimi)}>
-              <Text style={styles.buttonText}>{tapahtumat[0].tapahtumaNimi} </Text>
+      <Pressable style={styles.button} onPress={() => navigation.navigate(events[0].tapahtumaNimi)}>
+              <Text style={styles.buttonText}>{events[0].tapahtumaNimi} </Text>
       </Pressable>
 
-      <Pressable style={styles.button} onPress={() => navigation.navigate(tapahtumat[1].tapahtumaNimi)}>
-              <Text style={styles.buttonText}>{tapahtumat[1].tapahtumaNimi}</Text>
+      <Pressable style={styles.button} onPress={() => navigation.navigate(events[1].tapahtumaNimi)}>
+              <Text style={styles.buttonText}>{events[1].tapahtumaNimi}</Text>
       </Pressable>
 
       </View>
 
       <View style={styles.row}>
 
-      <Pressable style={styles.button} onPress={() => navigation.navigate(tapahtumat[2].tapahtumaNimi)}>
-              <Text style={styles.buttonText}>{tapahtumat[2].tapahtumaNimi} </Text>
+      <Pressable style={styles.button} onPress={() => navigation.navigate(events[2].tapahtumaNimi)}>
+              <Text style={styles.buttonText}>{events[2].tapahtumaNimi} </Text>
       </Pressable>
 
-      <Pressable style={styles.button} onPress={() => navigation.navigate(tapahtumat[3].tapahtumaNimi)}>
-              <Text style={styles.buttonText}>{tapahtumat[3].tapahtumaNimi}</Text>
+      <Pressable style={styles.button} onPress={() => navigation.navigate(events[3].tapahtumaNimi)}>
+              <Text style={styles.buttonText}>{events[3].tapahtumaNimi}</Text>
       </Pressable>
 
       </View>
 
-      <Pressable style={styles.buttonLast} onPress={() => navigation.navigate('Juomapeli')}>
+      <Pressable style={styles.buttonLast} onPress={() => navigation.navigate('Games')}>
         <Text style={styles.buttonText}>Juomapelit</Text>
       </Pressable>
 

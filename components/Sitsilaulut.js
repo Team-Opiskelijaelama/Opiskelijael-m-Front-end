@@ -1,27 +1,27 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, SafeAreaView, Text, View, Button, FlatList, Image, Pressable, ActivityIndicator, Dimensions, ScrollView } from "react-native";
+import { StyleSheet, Text, View, ActivityIndicator, Dimensions, ScrollView } from "react-native";
 import { gStyle } from '../styles/style';
 
 export default function Sitsilaulut() {
 
-    const [laulut, setLaulut] = useState([]);
+    const [songs, setSongs] = useState([]);
     const [loading, setLoading] = useState(false);
 
     const randomSong = Math.floor(Math.random() * (12 - 4 + 1)) + 4;
     
-    const getSitsilaulut = async () => {
+    const getSongs = async () => {
       try {
         const response = await
           fetch(`https://opiskelijaelama.herokuapp.com/rest/laulut`);
         const json = await response.json();
-        setLaulut(json);
+        setSongs(json);
         setLoading(true);
           } catch (error) {
       Alert.alert("haku ei toimi. virheilmoitus:" + toString(error))
     }
   };
 
-  useEffect(() => { getSitsilaulut() }, []);
+  useEffect(() => { getSongs() }, []);
 
   return (
     
@@ -32,28 +32,28 @@ export default function Sitsilaulut() {
     <View>
 
     <View style={styles.box}>
-      <Text style={styles.text}>1. {laulut[0].lauluNimi} (Pakollinen){"\n"}</Text>
-      <Text style={styles.text}>{laulut[0].sanat}</Text>
+      <Text style={styles.text}>1. {songs[0].lauluNimi} (Pakollinen){"\n"}</Text>
+      <Text style={styles.text}>{songs[0].sanat}</Text>
     </View>
 
     <View style={styles.box}>
-      <Text style={styles.text}>2. {laulut[1].lauluNimi} (Pakollinen){"\n"}</Text>
-      <Text style={styles.text}>{laulut[1].sanat}</Text>
+      <Text style={styles.text}>2. {songs[1].lauluNimi} (Pakollinen){"\n"}</Text>
+      <Text style={styles.text}>{songs[1].sanat}</Text>
     </View>
 
     <View style={styles.box}>
-      <Text style={styles.text}>3. {laulut[2].lauluNimi} (Pakollinen){"\n"}</Text>
-      <Text style={styles.text}>{laulut[2].sanat}</Text>
+      <Text style={styles.text}>3. {songs[2].lauluNimi} (Pakollinen){"\n"}</Text>
+      <Text style={styles.text}>{songs[2].sanat}</Text>
     </View>
 
     <View style={styles.box}>
-      <Text style={styles.text}>4. {laulut[3].lauluNimi} (Pakollinen){"\n"}</Text>
-      <Text style={styles.text}>{laulut[3].sanat}</Text>
+      <Text style={styles.text}>4. {songs[3].lauluNimi} (Pakollinen){"\n"}</Text>
+      <Text style={styles.text}>{songs[3].sanat}</Text>
     </View>
 
     <View style={styles.box}>
-      <Text style={styles.text}>5. {laulut[randomSong].lauluNimi} {"\n"}</Text>
-      <Text style={styles.text}>{laulut[randomSong].sanat}</Text>
+      <Text style={styles.text}>5. {songs[randomSong].lauluNimi} {"\n"}</Text>
+      <Text style={styles.text}>{songs[randomSong].sanat}</Text>
     </View>
 
      {/* <FlatList

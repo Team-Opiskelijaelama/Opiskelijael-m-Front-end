@@ -1,15 +1,14 @@
-import { useEffect, useState } from "react";
-import { StyleSheet, ScrollView, Text, View, Button, FlatList, Image, Pressable, Modal} from "react-native";
+import { useState } from "react";
+import { Text, View, FlatList, Pressable, Modal} from "react-native";
 import * as Location from 'expo-location'; 
 import MapView, { Marker } from 'react-native-maps';
 import Checkbox from 'expo-checkbox';
 import { gStyle } from '../styles/style';
 import {API_KEY} from "@env";
-import { setStatusBarStyle } from "expo-status-bar";
 
 export default function RestaurantApi() {
 
-  const [ravintolat, setRavintolat] = useState([]);
+  const [bars, setBars] = useState([]);
 
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -21,13 +20,13 @@ export default function RestaurantApi() {
 
 
   const handleChange = (id) => {
-    let temp = ravintolat.map((ravintola) => {
-      if (id === ravintola.indeksi) {
-        return { ...ravintola, isChecked: !ravintola.isChecked };
+    let temp = bars.map((bar) => {
+      if (id === bar.barindex) {
+        return { ...bar, isChecked: !bar.isChecked };
       }
-      return ravintola;
+      return bar;
     });
-    setRavintolat(temp);
+    setBars(temp);
   };
 
 
@@ -40,7 +39,7 @@ export default function RestaurantApi() {
 
   const [region, setRegion] = useState(initial);
 
-  const getSijainti = async () => {
+  const getLocation = async () => {
 
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
@@ -68,11 +67,11 @@ export default function RestaurantApi() {
 
 
     for (let i = 0; i < 6; i++) {
-      setRavintolat((ravintolat) => [...ravintolat, { name: data.results[i].name, lat: data.results[i].geometry.location.lat , lon: data.results[i].geometry.location.lng, open: data.results[i].opening_hours.open_now, address: data.results[i].vicinity, isChecked: false, indeksi: i }] 
+      setBars((bars) => [...bars, { name: data.results[i].name, lat: data.results[i].geometry.location.lat , lon: data.results[i].geometry.location.lng, open: data.results[i].opening_hours.open_now, address: data.results[i].vicinity, isChecked: false, barindex: i }] 
       )
     }
   
-    console.log(ravintolat);
+    console.log(bars);
 
 
 
@@ -92,13 +91,13 @@ export default function RestaurantApi() {
           coordinate={{latitude: Number(lat), longitude: Number(lon)}}
           title='Oma Sijaintisi'
         />
-        {ravintolat.map((item, index) => (
+        {bars.map((item, index) => (
           <Marker key={index} title={item.name} coordinate={{latitude: Number(item.lat), longitude: Number(item.lon)}}/>
         ))}
       </MapView>
       <Pressable
         style={[gStyle.button, gStyle.buttonOpen]}
-        onPress={getSijainti}
+        onPress={getLocation}
       >
         <Text style={gStyle.title}>Näytä sijaintisi</Text>
       </Pressable>
@@ -122,7 +121,7 @@ export default function RestaurantApi() {
             <View style={gStyle.modalView}>
 
               <FlatList
-                data={ravintolat}
+                data={bars}
                 keyExtractor={(item, index) => index.toString()}
                 contentContainerStyle = {{
                   padding: 10,
@@ -134,7 +133,7 @@ export default function RestaurantApi() {
                   <Checkbox
                     value={item.isChecked}
                     onValueChange={() => {
-                      handleChange(item.indeksi);
+                      handleChange(item.barindex);
                     }}
                     style={gStyle.checkbox}
                   />         

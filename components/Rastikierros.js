@@ -1,26 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, ScrollView, Modal, Pressable, ActivityIndicator } from 'react-native';
 import { gStyle } from '../styles/style';
-import Tehtavat from './Tehtavat';
 
 export default function Rastikierros({ navigation }) {
-  const [tapahtuma, setTapahtuma] = useState({});
+  const [event, setEvent] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const haeTapahtuma = async () => {
+  const fetchEvent = async () => {
     try {
       const response = await
         fetch(`https://opiskelijaelama.herokuapp.com/rest/tapahtuma/R`);
       const json = await response.json();
-      setTapahtuma(json);
+      setEvent(json);
       setLoading(true);
     } catch (error) {
       Alert.alert("ei toimi. virheilmoitus:" + toString(error))
     }
   };
 
-  useEffect(() => { haeTapahtuma() }, []);
+  useEffect(() => { fetchEvent() }, []);
 
   return (
     <ScrollView style={{flex: 1}}>
@@ -30,7 +29,7 @@ export default function Rastikierros({ navigation }) {
       <View>
 
         <View style={gStyle.description}>
-          <Text style={gStyle.descriptionText}>{tapahtuma.tapahtumaKuvaus}</Text>
+          <Text style={gStyle.descriptionText}>{event.tapahtumaKuvaus}</Text>
         </View>
 
         <Modal
@@ -52,7 +51,7 @@ export default function Rastikierros({ navigation }) {
                 <Text style={gStyle.title}>Sulje</Text>
               </Pressable>
               <Text style={gStyle.title}>Rastikierroksen säännöt:</Text>
-              <Text style={gStyle.modalText}>{tapahtuma.tapahtumaSaannot} </Text>
+              <Text style={gStyle.modalText}>{event.tapahtumaSaannot} </Text>
               <Pressable
                 style={[gStyle.button, gStyle.buttonClose]}
                 onPress={() => setModalVisible(!modalVisible)}
@@ -72,7 +71,7 @@ export default function Rastikierros({ navigation }) {
         <Pressable
           style={[gStyle.button]}
           onPress={() => {
-            navigation.navigate('Tehtavalista');
+            navigation.navigate('Tasklist');
           }}
         >
           <Text style={gStyle.buttonText}>Luo tehtävälista</Text>

@@ -1,26 +1,26 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, ScrollView, Text, View, Button, FlatList, Image, Pressable, ActivityIndicator, Dimensions } from "react-native";
+import { StyleSheet, Text, View, FlatList, ActivityIndicator, Dimensions } from "react-native";
 import { gStyle } from '../styles/style';
 
 export default function Tehtavat() {
 
-    const [tehtavat, setTehtavat] = useState([]);    
+    const [tasks, setTasks] = useState([]);    
     const [loading, setLoading] = useState(false);
     
-    const getTehtavat = async () => {
+    const getTasks = async () => {
       try {
         const response = await
           fetch(`https://opiskelijaelama.herokuapp.com/rest/tehtavat`)
         const json = await response.json();
-        setTehtavat(json);
-        console.log(tehtavat);
+        setTasks(json);
+        console.log(tasks);
         setLoading(true);
           } catch (error) {
       Alert.alert("haku ei toimi. virheilmoitus:" + toString(error))
     }
   };
 
-    useEffect(() => { getTehtavat() }, []);
+    useEffect(() => { getTasks() }, []);
 
     return (
       <View>
@@ -30,7 +30,7 @@ export default function Tehtavat() {
       <View style={styles.allButtons}>
 
       <FlatList
-        data={tehtavat}
+        data={tasks}
         keyExtractor={(item, index) => index.toString()}
         contentContainerStyle = {{
           padding: 10,

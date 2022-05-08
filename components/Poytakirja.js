@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, ScrollView, Modal, Pressable, Dimensions, TextInput, FlatList } from 'react-native';
+import { LogBox, Text, View, ScrollView, Modal, Pressable, Dimensions, TextInput, FlatList } from 'react-native';
 import { gStyle } from '../styles/style';
 
 export default function Poytakirja() {
@@ -35,6 +35,8 @@ export default function Poytakirja() {
         setMeeting(newMeeting)
       };
 
+    
+    
   return (
     <ScrollView>
       <View>
@@ -89,6 +91,7 @@ export default function Poytakirja() {
                     </View>
 
                 )}/>
+            
 
             <Pressable
             style={[gStyle.button, gStyle.buttonClose]}
@@ -106,6 +109,19 @@ export default function Poytakirja() {
         >
           <Text style={gStyle.title}>Katso täältä valmis kokouksesi</Text>
         </Pressable>
+
+        <Text style={gStyle.descriptionText}>
+            Pöytäkirjapohja on luotu Tampereen Akateemisesti Sivistyneet Gambinan Ystävien kokousohjeiden mukaisesti
+        </Text>
+        {/*<Pressable
+          style={[gStyle.button, gStyle.buttonOpen]}
+          onPress={() => {
+            window.location.href='http://www.gambina.fi/';
+            }}
+        >
+          <Text style={gStyle.title}>Kokousohjesääntö</Text>
+        </Pressable>*/}
+        
 
 
       </View>
