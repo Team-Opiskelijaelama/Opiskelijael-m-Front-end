@@ -1,11 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { LogBox, Text, View, ScrollView, Modal, Pressable, Dimensions, TextInput, FlatList } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { Linking, Text, View, ScrollView, Modal, Pressable, Dimensions, TextInput, FlatList, Button } from 'react-native';
 import { gStyle } from '../styles/style';
 
 export default function Poytakirja() {
 
 
     const [modalVisible, setModalVisible] = useState(false);
+    const supportedURL = "http://www.gambina.fi/";
+
+    const OpenURLButton = ({ url, children }) => {
+      const handlePress = useCallback(async () => {
+
+        const supported = await Linking.canOpenURL(url);
+    
+        if (supported) {
+
+          await Linking.openURL(url);
+        } else {
+          Alert.alert(`Don't know how to open this URL: ${url}`);
+        }
+      }, [url]);
+    
+      return <Button title={children} onPress={handlePress} />;
+    };
 
     const [meeting, setMeeting] = useState([
         {
@@ -35,13 +52,37 @@ export default function Poytakirja() {
         setMeeting(newMeeting)
       };
 
+    const headerComponent = () => (
+        <View>
+          <Text style={gStyle.title}>Kokouspöytäkirjaehdotus</Text>
+        </View>
+    )
+    const footerComponent = () => (
+        <View>
+          <Pressable
+            style={[gStyle.button, gStyle.buttonOpen]}
+            onPress={() => setModalVisible(true)}
+          >
+            <Text style={gStyle.title}>Katso täältä valmis kokouksesi</Text>
+          </Pressable>
+
+          <View style={gStyle.description}>            
+            <Text style={gStyle.descriptionText}>
+                Pöytäkirjapohja on luotu Tampereen Akateemisesti Sivistyneet Gambinan Ystävien kokousohjeiden mukaisesti
+            </Text>
+            <OpenURLButton url={supportedURL}>Kokousohjesäännöt</OpenURLButton>
+          </View>
+
+        </View>
+    )
+
     
     
   return (
-    <ScrollView>
+    <View>
       <View>
 
-        <Text style={gStyle.title}>Kokouspöytäkirjaehdotus</Text>
+        
         
         <FlatList
         data={meeting}
@@ -60,7 +101,9 @@ export default function Poytakirja() {
                 >{item.text}</TextInput>
             </View>
 
-        )}/>
+        )}
+        ListHeaderComponent={headerComponent}
+        ListFooterComponent={footerComponent}/>
         <Modal
           animationType="slide"
           transparent={true}
@@ -103,28 +146,11 @@ export default function Poytakirja() {
           </View>
 
         </Modal>
-        <Pressable
-          style={[gStyle.button, gStyle.buttonOpen]}
-          onPress={() => setModalVisible(true)}
-        >
-          <Text style={gStyle.title}>Katso täältä valmis kokouksesi</Text>
-        </Pressable>
 
-        <Text style={gStyle.descriptionText}>
-            Pöytäkirjapohja on luotu Tampereen Akateemisesti Sivistyneet Gambinan Ystävien kokousohjeiden mukaisesti
-        </Text>
-        {/*<Pressable
-          style={[gStyle.button, gStyle.buttonOpen]}
-          onPress={() => {
-            window.location.href='http://www.gambina.fi/';
-            }}
-        >
-          <Text style={gStyle.title}>Kokousohjesääntö</Text>
-        </Pressable>*/}
-        
+
 
 
       </View>
-    </ScrollView>
+    </View>
   );
 }

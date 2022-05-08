@@ -99,5 +99,14 @@ export const gStyle = StyleSheet.create({
         padding: 10,
         textAlignVertical: "top",
     },
+    listseparator: {
+        height: 1,
+        width: "80%",
+        backgroundColor: "#CED0CE",
+        marginLeft: "10%"
+    },
+    bold: {
+        fontWeight: 'bold',
+    }
 
 }) 

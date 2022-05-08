@@ -19,16 +19,23 @@ export default function Juomapeli() {
 
   useEffect(() => { fetchGames() }, []);
 
+  const listSeparator = () => {
+    return (
+      <View style={gStyle.listseparator}/>
+    );
+  };
+
   return (
-    <View style={gStyle.main}>
+    <View>
       <Text style={gStyle.title}> Juomapelit</Text>
       <FlatList data={game} renderItem={({ item }) =>
         <View>
-          <Text>Nimi: {item.juomapeliNimi}</Text>
+          <Text style={gStyle.bold}>Nimi: {item.juomapeliNimi}</Text>
           <Text>Tarvikkeet: {item.tarvikkeet}</Text>
           <Text>Säännöt: {item.juomapeliSaannot}</Text>
         </View>}
         keyExtractor={(item, index) => index}
+        ItemSeparatorComponent={listSeparator}
       />
 
     </View>
