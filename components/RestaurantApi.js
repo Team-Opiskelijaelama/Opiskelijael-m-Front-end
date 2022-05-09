@@ -88,6 +88,7 @@ export default function RestaurantApi() {
         region={region}
       >
         <Marker
+          pinColor={'blue'}
           coordinate={{latitude: Number(lat), longitude: Number(lon)}}
           title='Oma Sijaintisi'
         />
