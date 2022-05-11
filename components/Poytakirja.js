@@ -16,7 +16,7 @@ import { gStyle } from "../styles/style";
 
 export default function Poytakirja() {
    const [modalVisible, setModalVisible] = useState(false);
-   const supportedURL = "http://www.gambina.fi/";
+   const gambinaurl = "http://www.gambina.fi/";
 
    const OpenURLButton = ({ url, children }) => {
       const handlePress = useCallback(async () => {
@@ -77,6 +77,7 @@ export default function Poytakirja() {
          <Text style={gStyle.title}>Kokouspöytäkirjaehdotus</Text>
       </View>
    );
+   
    const footerComponent = () => (
       <View>
          <Pressable
@@ -97,12 +98,18 @@ export default function Poytakirja() {
 
          <Pressable
             style={[gStyle.button, gStyle.buttonClose]}
-            onPress={() => Linking.openURL(supportedURL)}
+            onPress={() => Linking.openURL(gambinaurl)}
          >
             <Text style={gStyle.title}>Kokousohjesäännöt</Text>
          </Pressable>
       </View>
    );
+
+   const modalHeaderComponent = () => (
+    <View>
+       <Text style={gStyle.title}>Gambinakokous</Text>
+    </View>
+ );
 
    return (
       <View>
@@ -138,7 +145,7 @@ export default function Poytakirja() {
             >
                <View style={gStyle.centeredView}>
                   <View style={gStyle.modalView}>
-                     <Text style={gStyle.title}>Gambinakokous</Text>
+                    
 
                      <FlatList
                         data={meeting}
@@ -156,6 +163,7 @@ export default function Poytakirja() {
                               </Text>
                            </View>
                         )}
+                        ListHeaderComponent={modalHeaderComponent}
                      />
 
                      <Pressable

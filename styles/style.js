@@ -14,7 +14,7 @@ export const gStyle = StyleSheet.create({
         textAlign: 'center',
         fontWeight: 'bold',
         color: 'black',
-        margin: 10,
+
     },
     centeredView: {
         flex: 1,

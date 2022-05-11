@@ -29,7 +29,7 @@ export default function RestaurantApi() {
     setBars(temp);
   };
 
-
+  
   const initial = {
     latitude: 61.92411,
     longitude: 25.748151,
@@ -54,11 +54,11 @@ export default function RestaurantApi() {
       setLon((location.coords.longitude).toString());
       const { latitude, longitude } = location.coords;
       setRegion({ ...region, latitude: latitude, longitude: longitude });
-      getRepositories;
+      getBars;
     }
 
  
-  const getRepositories = async () => {
+  const getBars = async () => {
     const url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=baari&location=' + lat + '%2C' + lon + '&radius=2000&key=' + API_KEY;
 
     try {
@@ -104,7 +104,7 @@ export default function RestaurantApi() {
       </Pressable>
       <Pressable
         style={[gStyle.button, gStyle.buttonOpen]}
-        onPress={getRepositories}
+        onPress={getBars}
       >
         <Text style={gStyle.title}>Hanki ravintoloita</Text>
       </Pressable>
@@ -164,7 +164,7 @@ export default function RestaurantApi() {
           style={[gStyle.button, gStyle.buttonOpen]}
           onPress={() => setModalVisible(true)}
         >
-          <Text style={gStyle.title}>Ravintolat</Text>
+          <Text style={gStyle.title}>Appropassi</Text>
         </Pressable>
 
     

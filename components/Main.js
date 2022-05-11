@@ -50,12 +50,12 @@ export default function Main({ navigation }) {
 
       <View style={styles.row}>
 
-      <Pressable style={styles.button} onPress={() => navigation.navigate(events[2].tapahtumaNimi)}>
-              <Text style={styles.buttonText}>{events[2].tapahtumaNimi} </Text>
-      </Pressable>
-
       <Pressable style={styles.button} onPress={() => navigation.navigate(events[3].tapahtumaNimi)}>
               <Text style={styles.buttonText}>{events[3].tapahtumaNimi}</Text>
+      </Pressable>      
+
+      <Pressable style={styles.button} onPress={() => navigation.navigate('Tasks')}>
+              <Text style={styles.buttonText}>Tehtäväkierros </Text>
       </Pressable>
 
       </View>
@@ -66,18 +66,6 @@ export default function Main({ navigation }) {
 
       </View>
 
-      {/* <FlatList data={tapahtumat} renderItem={({ item }) =>
-        <View>
-          <Pressable style={styles.button} onPress={() => navigation.navigate(item.tapahtumaNimi)}>
-              <Text style={styles.buttonText}>{item.tapahtumaNimi}</Text>
-          </Pressable>
-          <Text>{item.tapahtumaKuvaus}</Text>
-        </View>}
-        keyExtractor={(item, index) => index}
-      /> */}
-      {/* <Button title={'Juomapelit'} onPress={() => {
-        navigation.navigate('Juomapeli');
-      }} />  */}
       
       </ImageBackground> : <View style={gStyle.loading}>
         <ActivityIndicator size="large" color='#FF6FB5'/>

@@ -3,9 +3,8 @@ import Main from './components/Main';
 import Appro from './components/Appro';
 import Sitsit from './components/Sitsit';
 import Gambinakokous from "./components/Gambinakokous";
-import Rastikierros from './components/Rastikierros';
+import Tehtavakierros from './components/Tehtavakierros';
 import Juomapeli from './components/Juomapeli';
-import Tehtavat from './components/Tehtavat';
 import Sitsilaulut from "./components/Sitsilaulut";
 import Poytakirja from "./components/Poytakirja";
 
@@ -41,20 +40,15 @@ export default function Navigate() {
                 options={{title: 'Gambinakokous'}}
                 />
             <Stack.Screen 
-                name='Rastikierros'
-                component={Rastikierros}
-                options={{title: 'Rastikierros'}}
+                name='Tasks'
+                component={Tehtavakierros}
+                options={{title: 'Tehtäväkierros'}}
                 />
             <Stack.Screen 
                 name='Games'
                 component={Juomapeli}
                 options={{title: 'Juomapelit'}}
                 />
-            <Stack.Screen
-                name='Tasklist'
-                component={Tehtavat}
-                options={{title: 'Tehtävälista'}}
-            />
             <Stack.Screen
                 name='Bars'
                 component={RestaurantApi}
