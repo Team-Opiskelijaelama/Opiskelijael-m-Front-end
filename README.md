@@ -46,4 +46,6 @@ Avaa expolla
    
 Lataa 'Expo Go' sovellus puhelimeesi.
 
+### EXPO linkki
+https://expo.dev/@ivan_kolesov/Opiskelijaelama-Front-end
 
